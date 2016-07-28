@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/cart_action_menu"
+        android:icon="@mipmap/ic_cart_icon"
+        android:title="Cart"
+        app:showAsAction="always"></item>
+
+    <item
+        android:id="@+id/filter"
+        android:icon="@mipmap/ic_filter_icon"
+        android:title="Filter"
+        app:showAsAction="always"></item>
+
+    <item
+        android:id="@+id/sync"
+        android:icon="@mipmap/ic_sync_icom"
+        android:title="Sync"
+        app:showAsAction="ifRoom"></item>
+
+</menu>

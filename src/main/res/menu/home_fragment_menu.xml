@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/products"
+        android:icon="@mipmap/ic_products_menu_icon"
+        android:title="Products"
+        app:showAsAction="always"></item>
+
+    <item
+        android:id="@+id/cart"
+        android:icon="@mipmap/ic_cart_menu_icon"
+        android:title="Cart"
+        app:showAsAction="always"></item>
+
+
+</menu>
