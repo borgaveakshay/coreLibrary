@@ -22,7 +22,6 @@ public abstract class GenericMenuedActivity extends AppCompatActivity  implement
     public void onCreate(Bundle savedInstanceState, int resourceId, boolean enableBackButton, boolean enableNavDrawer, int titleResorceId ){
         setContentView(resourceId);
         setTitle(titleResorceId);
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
