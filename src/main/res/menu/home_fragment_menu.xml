@@ -8,6 +8,7 @@
         android:title="Products"
         app:showAsAction="always"></item>
 
+    s
     <item
         android:id="@+id/cart"
         android:icon="@mipmap/ic_cart_menu_icon"

@@ -4,6 +4,7 @@
     <group android:checkableBehavior="single">
         <item android:id="@+id/products" android:icon="@mipmap/ic_products_menu_icon"
             android:title="Products" />
+
         <item android:id="@+id/cart" android:icon="@mipmap/ic_cart_menu_icon"
             android:title="Cart" />
         <!--<item android:id="@+id/nav_manage" android:icon="@android:drawable/ic_menu_manage"-->
