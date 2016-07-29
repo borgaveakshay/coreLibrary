@@ -15,8 +15,7 @@ import java.lang.reflect.ParameterizedType;
 /**
  * Created by Akshay.Borgave on 31-03-2016.
  */
-public class GenericFragmentMenuedActivity< T extends BaseFragmentManager > extends GenericMenuedActivity {
-
+public class GenericFragmentMenuedActivity < T extends BaseFragmentManager > extends GenericMenuedActivity {
 
     FragmentCallBacks callBacks;
     int menuResourceId;
@@ -25,12 +24,10 @@ public class GenericFragmentMenuedActivity< T extends BaseFragmentManager > exte
 
     public void onCreate(Bundle savedInstanceState, Class<T> classTemplate, int resourceId, boolean enableBackButton, boolean enableNavDrawer, int titleResorceId) {
         super.onCreate(savedInstanceState, resourceId, enableBackButton, enableNavDrawer, titleResorceId);
-
         try {
-            tClass = classTemplate;
 
+            tClass =  classTemplate;
             initializeFragment();
-
 
         } catch (IllegalAccessException e) {
             e.printStackTrace();
@@ -44,7 +41,7 @@ public class GenericFragmentMenuedActivity< T extends BaseFragmentManager > exte
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         fragment = tClass.newInstance();
         callBacks = (FragmentCallBacks) fragment;
-       // fragment  = (T) ((Class)((ParameterizedType)this.getClass().getGenericSuperclass()).getActualTypeArguments()[0]).newInstance();
+
         // Replace whatever is in the fragment_container view with this fragment,
         // and add the transaction to the back stack so the user can navigate back
         transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);

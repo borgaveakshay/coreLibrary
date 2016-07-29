@@ -44,6 +44,7 @@ public abstract class BaseWebServiceCall<T extends Call<Z>, Z> {
                 @Override
                 public void onFailure(final Call<Z> call, final Throwable t) {
 
+                    fragmentCallBacks.hideProgressIndicator();
                     showErrorDialog();
                     onCallFailure(call, t);
                 }
