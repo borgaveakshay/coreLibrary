@@ -33,9 +33,10 @@ public abstract class GenericMenuedActivity extends AppCompatActivity  implement
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onBackButtonPressed();
+                     onBackButtonPressed();
                 }
-            });        }
+            });
+        }
 
         if(enableNavDrawer){
 

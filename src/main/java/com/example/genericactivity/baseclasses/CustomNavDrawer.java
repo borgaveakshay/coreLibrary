@@ -28,7 +28,7 @@ public class CustomNavDrawer extends android.support.design.widget.NavigationVie
 
             if( typedArray.getIndex(i) == R.styleable.CustomNavDrawer_custom_menu){
 
-                drawerMenuResourceId = typedArray.getIndex(attr);
+                drawerMenuResourceId =  typedArray.getIndex(attr);
             }
 
         }

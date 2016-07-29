@@ -14,6 +14,6 @@ public abstract class GenericListMeneuedActivity<T> extends GenericMenuedActivit
     @Override
     protected void onResume() {
         super.onResume();
-        intialize();
+          intialize();
     }
 }

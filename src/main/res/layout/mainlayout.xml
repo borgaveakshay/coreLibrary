@@ -20,6 +20,4 @@
             android:textColor="@color/colorPrimary" />
 
     </RelativeLayout>
-
-
 </RelativeLayout>

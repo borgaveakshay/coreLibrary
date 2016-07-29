@@ -26,8 +26,8 @@ public class GenericFragmentMenuedActivity < T extends BaseFragmentManager > ext
         super.onCreate(savedInstanceState, resourceId, enableBackButton, enableNavDrawer, titleResorceId);
         try {
 
-            tClass =  classTemplate;
-            initializeFragment();
+             tClass =  classTemplate;
+             initializeFragment();
 
         } catch (IllegalAccessException e) {
             e.printStackTrace();

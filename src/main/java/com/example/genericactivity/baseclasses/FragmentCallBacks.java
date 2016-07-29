@@ -8,9 +8,9 @@ import android.view.MenuItem;
  */
 public interface FragmentCallBacks {
 
-    public void showProgressIndicator();
+      public void showProgressIndicator();
 
-    public void hideProgressIndicator();
+      public void hideProgressIndicator();
 
-    public void handleMenuClick(MenuItem menuItem);
+      public void handleMenuClick(MenuItem menuItem);
 }

@@ -43,7 +43,7 @@ public class BaseFragmentManager extends Fragment implements FragmentCallBacks {
 
     @Override
     public void showProgressIndicator() {
-        progressView = (ProgressBar) contentView.findViewById(getProgressBarResourceId());
+        progressView = (ProgressBar)  contentView.findViewById(getProgressBarResourceId());
         progressView.setVisibility(View.VISIBLE);
 
     }
