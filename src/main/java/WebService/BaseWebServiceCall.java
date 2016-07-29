@@ -45,18 +45,18 @@ public abstract class BaseWebServiceCall<T extends Call<Z>, Z> {
                 public void onFailure(final Call<Z> call, final Throwable t) {
 
                     fragmentCallBacks.hideProgressIndicator();
-                    showErrorDialog();
+                    showErrorDialog(t);
                     onCallFailure(call, t);
                 }
             });
     }
 
-    public void showErrorDialog() {
+    public void showErrorDialog(Throwable t) {
 
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context);
 
         alertBuilder.setTitle("Error");
-        alertBuilder.setMessage("Something Went Wrong.");
+        alertBuilder.setMessage("Log : " + t.getMessage());
         alertBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
