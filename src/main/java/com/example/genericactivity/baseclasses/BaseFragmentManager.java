@@ -43,15 +43,19 @@ public class BaseFragmentManager extends Fragment implements FragmentCallBacks {
 
     @Override
     public void showProgressIndicator() {
-        progressView = (ProgressBar)  contentView.findViewById(getProgressBarResourceId());
-        progressView.setVisibility(View.VISIBLE);
 
+            try {
+                progressView = (ProgressBar) getView().findViewById(getProgressBarResourceId());
+                progressView.setVisibility(View.VISIBLE);
+            }
+            catch (Exception e) {
+
+            }
     }
     @Override
     public void hideProgressIndicator() {
 
         if (progressView != null) {
-
             progressView.setVisibility(View.INVISIBLE);
         }
     }
@@ -83,7 +87,7 @@ public class BaseFragmentManager extends Fragment implements FragmentCallBacks {
 
     public void initFragment() {
 
-        setAppActivity((GenericFragmentMenuedActivity) getActivity());
+
     }
 
 }
