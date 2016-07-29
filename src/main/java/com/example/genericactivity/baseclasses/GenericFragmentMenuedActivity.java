@@ -18,7 +18,6 @@ import java.lang.reflect.ParameterizedType;
 public class GenericFragmentMenuedActivity < T extends BaseFragmentManager > extends GenericMenuedActivity {
 
     FragmentCallBacks callBacks;
-    int menuResourceId;
     public T fragment;
     Class<T> tClass;
 
@@ -54,13 +53,6 @@ public class GenericFragmentMenuedActivity < T extends BaseFragmentManager > ext
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        menu.clear();
-        getMenuInflater().inflate(getMenuResourceId(), menu);
-        return true;
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         callBacks.handleMenuClick(item);
         return true;
@@ -74,11 +66,5 @@ public class GenericFragmentMenuedActivity < T extends BaseFragmentManager > ext
         this.callBacks = callBacks;
     }
 
-    public int getMenuResourceId() {
-        return menuResourceId;
-    }
 
-    public void setMenuResourceId(int menuResourceId) {
-        this.menuResourceId = menuResourceId;
-    }
 }

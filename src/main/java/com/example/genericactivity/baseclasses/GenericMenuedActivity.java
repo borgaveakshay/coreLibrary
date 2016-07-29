@@ -18,7 +18,7 @@ import com.example.genericactivity.R;
 
 public abstract class GenericMenuedActivity extends AppCompatActivity  implements NavigationView.OnNavigationItemSelectedListener{
 
-
+    int menuResourceId;
     public void onCreate(Bundle savedInstanceState, int resourceId, boolean enableBackButton, boolean enableNavDrawer, int titleResorceId ){
         setContentView(resourceId);
         setTitle(titleResorceId);
@@ -35,8 +35,7 @@ public abstract class GenericMenuedActivity extends AppCompatActivity  implement
                 public void onClick(View v) {
                      onBackButtonPressed();
                 }
-            });
-        }
+            });        }
 
         if(enableNavDrawer){
 
@@ -55,21 +54,9 @@ public abstract class GenericMenuedActivity extends AppCompatActivity  implement
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        if(item.getItemId() == R.id.sync){
-            sync();
-        }
-        if(item.getItemId() == R.id.cart_action_menu){
-            // TODO: 08-03-2016 have to add cart screen call
-        }
-
-        return super.onOptionsItemSelected(item);
+        menu.clear();
+        getMenuInflater().inflate(getMenuResourceId(), menu);
+        return true;
     }
 
 
@@ -87,7 +74,13 @@ public abstract class GenericMenuedActivity extends AppCompatActivity  implement
         return true;
     }
 
+    public int getMenuResourceId() {
+        return menuResourceId;
+    }
 
+    public void setMenuResourceId(int menuResourceId) {
+        this.menuResourceId = menuResourceId;
+    }
 
     protected void sync(){
 
