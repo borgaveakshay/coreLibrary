@@ -1,11 +1,13 @@
 package com.example.genericactivity.baseclasses;
 
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.OrientationEventListener;
 import android.view.View;
 
 import com.example.genericactivity.R;
@@ -26,7 +28,9 @@ public class GenericFragmentMenuedActivity < T extends BaseFragmentManager > ext
         try {
 
              tClass =  classTemplate;
-             initializeFragment();
+            if(savedInstanceState == null)
+                initializeFragment();
+
 
         } catch (IllegalAccessException e) {
             e.printStackTrace();

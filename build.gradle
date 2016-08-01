@@ -19,7 +19,7 @@ android {
     }
 }
 task deleteJar (type: Delete){
-    delete 'libs/CoreLibraryModule.jar'
+    delete 'target/CoreLibraryModule.jar'
 }
 task createJar(type: Copy) {
     from('build/intermediates/bundles/release/')

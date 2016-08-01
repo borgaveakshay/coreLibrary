@@ -13,6 +13,8 @@ import android.widget.ProgressBar;
 import com.example.genericactivity.R;
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
 
+import java.io.Serializable;
+
 /**
  * Created by Akshay.Borgave on 07-03-2016.
  */
@@ -87,7 +89,19 @@ public class BaseFragmentManager extends Fragment implements FragmentCallBacks {
 
     public void initFragment() {
 
+        setRetainInstance(true);
 
     }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        appActivity.setCallBacks(this);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        appActivity.setCallBacks(this);
+    }
 }
