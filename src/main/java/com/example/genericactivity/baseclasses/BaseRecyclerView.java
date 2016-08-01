@@ -42,6 +42,7 @@ public abstract  class BaseRecyclerView < T extends BaseModel , Z extends Recycl
     @Override
     public void onBindViewHolder(final Z holder, int position) {
 
+        onBind(holder,position);
         final BaseModel model = dataList.get(position);
 
         if(isMultiSelectEnable) {
@@ -60,7 +61,6 @@ public abstract  class BaseRecyclerView < T extends BaseModel , Z extends Recycl
                 }
             });
         }
-        onBind(holder,position);
 
         if(model.isSelected()){
             ImageView imageView = (ImageView) holder.itemView.findViewById(setImageResource);
