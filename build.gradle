@@ -23,7 +23,7 @@ task deleteJar (type: Delete){
 }
 task createJar(type: Copy) {
     from('build/intermediates/bundles/release/')
-    into('libs/')
+    into('/target/jar/').
     include('classes.jar')
     rename ('classes.jar', 'CoreLibraryModule.jar')
 }
