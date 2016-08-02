@@ -6,6 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.genericactivity.R;
 import java.util.ArrayList;
 
@@ -22,6 +25,7 @@ public abstract  class BaseRecyclerView < T extends BaseModel , Z extends Recycl
    private boolean isMultiSelectEnable;
    protected BaseFragmentManager baseFragmentManager;
    private int setImageResource;
+   private boolean isMultipleItemSelected;
 
     public BaseRecyclerView(boolean doMultiSelectEnable, int imageResourceId , int parentViewResourceId){
         isMultiSelectEnable = doMultiSelectEnable;
@@ -46,25 +50,81 @@ public abstract  class BaseRecyclerView < T extends BaseModel , Z extends Recycl
         final BaseModel model = dataList.get(position);
 
         if(isMultiSelectEnable) {
+
             View view = holder.itemView.findViewById(parentViewResourceId);
+
             view.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
+
                    BaseModel selectedModel = (BaseModel) v.getTag();
-                    selectedModel.setSelectedImageResource(R.mipmap.ic_tick);
+                   selectedModel.setSelectedImageResource(R.mipmap.ic_tick);
+                   MultiSelectImageView imageView = null;
                     if(!selectedModel.isSelected()) {
+
+                        if(selectList == null) {
+                            selectList = new ArrayList<T>();
+                        }
                         selectedModel.setSelected(true);
-                        ImageView imageView = (ImageView) holder.itemView.findViewById(setImageResource);
+                        imageView = (MultiSelectImageView) holder.itemView.findViewById(setImageResource);
                         imageView.setImageResource(selectedModel.getSelectedImageResource());
+                        selectList.add((T) selectedModel);
+
+                        if(selectList.size() > 0)
+                            isMultipleItemSelected = true;
+                    }
+                    else
+                    {
+                        if(imageView == null) {
+                            imageView = (MultiSelectImageView) holder.itemView.findViewById(setImageResource);
+                        }
+                        selectedModel.setSelected(false);
+                        imageView.setPreviousBitMap();
+                        selectList.remove(selectedModel);
                     }
                     return true;
                 }
             });
-        }
 
+            view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        if(isMultipleItemSelected) {
+                            MultiSelectImageView imageView;
+                            BaseModel selectedModel = (BaseModel) v.getTag();
+                            selectedModel.setSelectedImageResource(R.mipmap.ic_tick);
+                            if (!selectedModel.isSelected()) {
+
+                                selectedModel.setSelected(true);
+                                 imageView = (MultiSelectImageView) holder.itemView.findViewById(setImageResource);
+                                 imageView.setImageResource(selectedModel.getSelectedImageResource());
+                                selectList.add((T) selectedModel);
+
+                            }
+                            else
+                            {
+                                imageView = (MultiSelectImageView) holder.itemView.findViewById(setImageResource);
+                                imageView.setPreviousBitMap();
+                                selectedModel.setSelected(false);
+                                selectList.remove(selectedModel);
+                                if(selectList.size() == 0){
+                                    isMultipleItemSelected = false;
+                                }
+                            }
+                        }
+                    }
+                });
+
+        }
+        MultiSelectImageView imageView = (MultiSelectImageView) holder.itemView.findViewById(setImageResource);
         if(model.isSelected()){
-            ImageView imageView = (ImageView) holder.itemView.findViewById(setImageResource);
+
             imageView.setImageResource(model.getSelectedImageResource());
+        }
+        else
+        {
+            imageView.getPreviousImageBitmap();
         }
         holder.itemView.setTag(model);
 
