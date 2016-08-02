@@ -17,38 +17,21 @@ import android.view.View;
 import com.example.genericactivity.R;
 
 public abstract class GenericMenuedActivity extends AppCompatActivity  implements NavigationView.OnNavigationItemSelectedListener{
-
-    int menuResourceId;
+   protected Toolbar toolbar;
+   int menuResourceId;
     public void onCreate(Bundle savedInstanceState, int resourceId, boolean enableBackButton, boolean enableNavDrawer, int titleResorceId ){
         setContentView(resourceId);
         setTitle(titleResorceId);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         if(enableBackButton) {
-
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                     onBackButtonPressed();
-                }
-            });        }
-
-        if(enableNavDrawer){
-
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-            ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                    this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-            drawer.setDrawerListener(toggle);
-            toggle.syncState();
-
-            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-            navigationView.setNavigationItemSelectedListener(this);
+            enableBackButton();
         }
 
+        if(enableNavDrawer){
+            enableNavigationDrawer();
+        }
     }
 
     @Override
@@ -57,7 +40,6 @@ public abstract class GenericMenuedActivity extends AppCompatActivity  implement
         getMenuInflater().inflate(getMenuResourceId(), menu);
         return true;
     }
-
 
     public void onBackButtonPressed(){
         finish();
@@ -82,5 +64,45 @@ public abstract class GenericMenuedActivity extends AppCompatActivity  implement
 
     protected void sync(){
 
+    }
+
+    public void enableBackButton()
+    {
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackButtonPressed();
+            }
+        });
+
+    }
+
+    public void enableNavigationDrawer(){
+
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+    }
+    public void replaceToolBarMenu(int menuResourceId){
+        toolbar.getMenu().clear();
+        toolbar.inflateMenu(menuResourceId);
+    }
+
+    public void disableBackButton(){
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setDisplayShowHomeEnabled(false);
+    }
+
+    public void setToolbarTitle(int titleResourceId){
+
+        toolbar.setTitle(titleResourceId);
     }
 }

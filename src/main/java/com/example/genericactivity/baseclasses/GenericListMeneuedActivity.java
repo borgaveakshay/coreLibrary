@@ -9,11 +9,4 @@ public abstract class GenericListMeneuedActivity<T> extends GenericMenuedActivit
 
     protected ArrayList<T> dataList = null;
 
-    public abstract void intialize();
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-          intialize();
-    }
 }

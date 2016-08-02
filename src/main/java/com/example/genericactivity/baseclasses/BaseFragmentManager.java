@@ -14,17 +14,19 @@ import com.example.genericactivity.R;
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Created by Akshay.Borgave on 07-03-2016.
  */
-public class BaseFragmentManager extends Fragment implements FragmentCallBacks {
+public class BaseFragmentManager extends Fragment implements FragmentCallBacks{
 
     protected Context context;
-    protected GenericFragmentMenuedActivity appActivity;
+    protected GenericFragmentListMenuedActivity appActivity;
     ProgressBar progressView;
     public View contentView;
     public int progressBarResourceId;
+
 
     @Override
     public Context getContext() {
@@ -35,24 +37,24 @@ public class BaseFragmentManager extends Fragment implements FragmentCallBacks {
         this.context = context;
     }
 
-    public AppCompatActivity getAppActivity() {
+    public GenericFragmentListMenuedActivity getAppActivity() {
         return appActivity;
     }
 
-    public void setAppActivity(GenericFragmentMenuedActivity appActivity) {
+    public void setAppActivity(GenericFragmentListMenuedActivity appActivity) {
         this.appActivity = appActivity;
     }
 
     @Override
     public void showProgressIndicator() {
 
-            try {
+      try {
                 progressView = (ProgressBar) getView().findViewById(getProgressBarResourceId());
                 progressView.setVisibility(View.VISIBLE);
-            }
-            catch (Exception e) {
+          }
+       catch (Exception e) {
 
-            }
+        }
     }
     @Override
     public void hideProgressIndicator() {
@@ -104,4 +106,6 @@ public class BaseFragmentManager extends Fragment implements FragmentCallBacks {
         super.onStart();
         appActivity.setCallBacks(this);
     }
+
+
 }

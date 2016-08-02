@@ -23,9 +23,11 @@ public abstract  class BaseRecyclerView < T extends BaseModel , Z extends Recycl
    protected Context con;
    protected int parentViewResourceId;
    private boolean isMultiSelectEnable;
-   protected BaseFragmentManager baseFragmentManager;
+   protected BaseListFragmentManager<T> baseFragmentManager;
    private int setImageResource;
    private boolean isMultipleItemSelected;
+   private MultiSelectEnableListener<T> multiSelectEnableListener;
+
 
     public BaseRecyclerView(boolean doMultiSelectEnable, int imageResourceId , int parentViewResourceId){
         isMultiSelectEnable = doMultiSelectEnable;
@@ -72,6 +74,7 @@ public abstract  class BaseRecyclerView < T extends BaseModel , Z extends Recycl
 
                         if(selectList.size() > 0)
                             isMultipleItemSelected = true;
+                        baseFragmentManager.multiSelectPerfromed(selectList);
                     }
                     else
                     {
@@ -81,6 +84,7 @@ public abstract  class BaseRecyclerView < T extends BaseModel , Z extends Recycl
                         selectedModel.setSelected(false);
                         imageView.setPreviousBitMap();
                         selectList.remove(selectedModel);
+                        baseFragmentManager.multiSelectPerfromed(selectList);
                     }
                     return true;
                 }
@@ -100,6 +104,7 @@ public abstract  class BaseRecyclerView < T extends BaseModel , Z extends Recycl
                                  imageView = (MultiSelectImageView) holder.itemView.findViewById(setImageResource);
                                  imageView.setImageResource(selectedModel.getSelectedImageResource());
                                 selectList.add((T) selectedModel);
+                                baseFragmentManager.multiSelectPerfromed(selectList);
 
                             }
                             else
@@ -111,6 +116,7 @@ public abstract  class BaseRecyclerView < T extends BaseModel , Z extends Recycl
                                 if(selectList.size() == 0){
                                     isMultipleItemSelected = false;
                                 }
+                                baseFragmentManager.multiSelectPerfromed(selectList);
                             }
                         }
                     }
@@ -130,14 +136,16 @@ public abstract  class BaseRecyclerView < T extends BaseModel , Z extends Recycl
 
     }
 
+    public MultiSelectEnableListener<T> getMultiSelectEnableListener() {
+        return multiSelectEnableListener;
+    }
+
+    public void setMultiSelectEnableListener(MultiSelectEnableListener<T> multiSelectEnableListener) {
+        this.multiSelectEnableListener = multiSelectEnableListener;
+    }
+
     public abstract Z onCreateView(ViewGroup parent, int viewType);
     public abstract void onBind(Z holder, int pos);
 
-    View.OnLongClickListener onLongClickListener = new View.OnLongClickListener() {
-        @Override
-        public boolean onLongClick(View v) {
-            return false;
-        }
-    };
 
 }
