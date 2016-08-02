@@ -9,7 +9,7 @@ import java.util.ArrayList;
 /**
  * Created by Akshay.Borgave on 02-08-2016.
  */
-public  abstract class GenericFragmentListMenuedActivity<T extends BaseListFragmentManager,Z> extends GenericFragmentMenuedActivity<T> implements MultiSelectEnableListener<Z> {
+public  abstract class GenericFragmentListMenuedActivity < T extends BaseListFragmentManager, Z > extends GenericFragmentMenuedActivity<T> implements MultiSelectEnableListener<Z> {
 
     ArrayList<Z> dataList;
     boolean listMultiselectEnableInd;
@@ -19,7 +19,6 @@ public  abstract class GenericFragmentListMenuedActivity<T extends BaseListFragm
         listMultiselectEnableInd = listMultiselectInd;
         defaultTitleResourceId = titleResorceId;
     }
-
 
     @Override
     public void multiSelectPerfromed(ArrayList<Z> dataList) {
@@ -46,7 +45,6 @@ public  abstract class GenericFragmentListMenuedActivity<T extends BaseListFragm
         {
             super.onBackButtonPressed();
         }
-
     }
 
     public void setDefaultToolBarConfig()
@@ -55,6 +53,5 @@ public  abstract class GenericFragmentListMenuedActivity<T extends BaseListFragm
         replaceToolBarMenu(getMenuResourceId());
         disableBackButton();
         setToolbarTitle(defaultTitleResourceId);
-
     }
 }
