@@ -28,18 +28,19 @@ public  abstract class GenericFragmentListMenuedActivity<T extends BaseListFragm
             replaceToolBarMenu(R.menu.multi_select_menu);
             enableBackButton();
         }
-        if(dataList.size() == 0){
+        else
+        if(dataList.size() == 0 || dataList == null){
             setDefaultToolBarConfig();
         }
-
-        toolbar.setTitle(dataList.size()+" Selected");
+        else {
+            toolbar.setTitle(dataList.size() + " Selected");
+        }
     }
 
     @Override
     public void onBackButtonPressed() {
         if(listMultiselectEnableInd){
             setDefaultToolBarConfig();
-            multiSelectPerfromed(null);
         }
         else
         {
@@ -50,9 +51,10 @@ public  abstract class GenericFragmentListMenuedActivity<T extends BaseListFragm
 
     public void setDefaultToolBarConfig()
     {
-        toolbar.getMenu().clear();
-        toolbar.inflateMenu(getMenuResourceId());
+        clearToolBarMenu();
+        replaceToolBarMenu(getMenuResourceId());
         disableBackButton();
         setToolbarTitle(defaultTitleResourceId);
+
     }
 }

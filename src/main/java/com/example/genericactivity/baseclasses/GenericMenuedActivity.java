@@ -102,7 +102,11 @@ public abstract class GenericMenuedActivity extends AppCompatActivity  implement
     }
 
     public void setToolbarTitle(int titleResourceId){
-
-        toolbar.setTitle(titleResourceId);
+        getSupportActionBar().setTitle(getResources().getString(titleResourceId));
     }
+
+    public void clearToolBarMenu(){
+        toolbar.getMenu().clear();
+    }
+
 }
