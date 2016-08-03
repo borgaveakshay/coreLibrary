@@ -2,14 +2,11 @@ package RecycleViewBaseClasses;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-
 import BaseModels.BaseModel;
 import Interfaces.MultiSelectEnableListener;
 import UtilityBaseClasses.MultiSelectImageView;
 import com.example.genericactivity.R;
-
 import java.util.ArrayList;
-
 import FragmentBaseClasses.BaseListFragmentManager;
 
 /**
@@ -37,7 +34,6 @@ public abstract class BaseMultiselectRecycleView < T extends BaseModel, Z extend
     public void onBindViewHolder(final Z holder, int position) {
 
         onBind(holder,position);
-
 
         if(isMultiSelectEnable) {
 
