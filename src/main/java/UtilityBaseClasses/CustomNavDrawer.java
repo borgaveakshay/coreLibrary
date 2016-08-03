@@ -1,9 +1,8 @@
-package com.example.genericactivity.baseclasses;
+package UtilityBaseClasses;
 
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
-import android.view.ContextMenu;
 
 import com.example.genericactivity.R;
 

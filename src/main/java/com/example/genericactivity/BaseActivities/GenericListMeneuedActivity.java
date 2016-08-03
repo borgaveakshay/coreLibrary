@@ -1,4 +1,4 @@
-package com.example.genericactivity.baseclasses;
+package com.example.genericactivity.BaseActivities;
 
 import java.util.ArrayList;
 

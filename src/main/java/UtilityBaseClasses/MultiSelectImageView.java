@@ -1,11 +1,9 @@
-package com.example.genericactivity.baseclasses;
+package UtilityBaseClasses;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.AttributeSet;
 import android.widget.ImageView;
-
-import com.bumptech.glide.request.animation.GlideAnimation;
 
 /**
  * Created by Akshay.Borgave on 02-08-2016.

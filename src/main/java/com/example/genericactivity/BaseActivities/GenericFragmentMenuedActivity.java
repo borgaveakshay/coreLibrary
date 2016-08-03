@@ -1,25 +1,20 @@
-package com.example.genericactivity.baseclasses;
+package com.example.genericactivity.BaseActivities;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.view.KeyEvent;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.view.OrientationEventListener;
-import android.view.View;
 
 import com.example.genericactivity.R;
 
-import java.lang.reflect.ParameterizedType;
+import FragmentBaseClasses.BaseFragmentManager;
+import Interfaces.FragmentCallBacks;
 
 /**
  * Created by Akshay.Borgave on 31-03-2016.
  */
-public class GenericFragmentMenuedActivity < T extends BaseFragmentManager > extends GenericMenuedActivity {
+public class GenericFragmentMenuedActivity < T extends BaseFragmentManager> extends GenericMenuedActivity {
 
-    FragmentCallBacks callBacks;
+    protected FragmentCallBacks callBacks;
     public T fragment;
     Class<T> tClass;
 

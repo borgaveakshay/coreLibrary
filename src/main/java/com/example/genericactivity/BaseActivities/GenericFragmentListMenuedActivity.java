@@ -1,10 +1,13 @@
-package com.example.genericactivity.baseclasses;
+package com.example.genericactivity.BaseActivities;
 
 import android.os.Bundle;
 
 import com.example.genericactivity.R;
 
 import java.util.ArrayList;
+
+import FragmentBaseClasses.BaseListFragmentManager;
+import Interfaces.MultiSelectEnableListener;
 
 /**
  * Created by Akshay.Borgave on 02-08-2016.
@@ -40,6 +43,7 @@ public  abstract class GenericFragmentListMenuedActivity < T extends BaseListFra
     public void onBackButtonPressed() {
         if(listMultiselectEnableInd){
             setDefaultToolBarConfig();
+            callBacks.onBackPressed();
         }
         else
         {

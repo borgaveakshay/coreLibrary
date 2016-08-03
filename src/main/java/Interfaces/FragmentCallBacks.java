@@ -1,6 +1,5 @@
-package com.example.genericactivity.baseclasses;
+package Interfaces;
 
-import android.view.Menu;
 import android.view.MenuItem;
 
 /**
@@ -13,4 +12,6 @@ public interface FragmentCallBacks {
       public void hideProgressIndicator();
 
       public void handleMenuClick(MenuItem menuItem);
+
+      public void onBackPressed();
 }

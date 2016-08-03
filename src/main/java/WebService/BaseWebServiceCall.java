@@ -1,14 +1,10 @@
 package WebService;
 
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.view.View;
-import android.widget.ProgressBar;
 
-import com.example.genericactivity.baseclasses.FragmentCallBacks;
+import Interfaces.FragmentCallBacks;
 
 import retrofit2.Call;
 import retrofit2.Callback;

@@ -1,4 +1,4 @@
-package com.example.genericactivity.baseclasses;
+package BaseModels;
 
 /**
  * Created by Akshay.Borgave on 01-08-2016.

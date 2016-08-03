@@ -1,25 +1,18 @@
-package com.example.genericactivity.baseclasses;
+package FragmentBaseClasses;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
-import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
-import com.example.genericactivity.R;
-import com.github.rahatarmanahmed.cpv.CircularProgressView;
-
-import java.io.Serializable;
-import java.util.ArrayList;
+import Interfaces.FragmentCallBacks;
+import com.example.genericactivity.BaseActivities.GenericFragmentListMenuedActivity;
 
 /**
  * Created by Akshay.Borgave on 07-03-2016.
  */
-public class BaseFragmentManager extends Fragment implements FragmentCallBacks{
+public class BaseFragmentManager extends Fragment implements FragmentCallBacks {
 
     protected Context context;
     protected GenericFragmentListMenuedActivity appActivity;
@@ -66,6 +59,11 @@ public class BaseFragmentManager extends Fragment implements FragmentCallBacks{
 
     @Override
     public void handleMenuClick(MenuItem menuItem) {
+
+    }
+
+    @Override
+    public void onBackPressed() {
 
     }
 
