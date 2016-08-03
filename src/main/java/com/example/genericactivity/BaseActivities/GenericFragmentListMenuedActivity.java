@@ -29,9 +29,9 @@ public  abstract class GenericFragmentListMenuedActivity < T extends BaseListFra
         if(dataList.size() == 1){
             replaceToolBarMenu(R.menu.multi_select_menu);
             enableBackButton();
+            toolbar.setTitle(dataList.size() + " Selected");
         }
-        else
-        if(dataList.size() == 0 || dataList == null){
+        else if(dataList.size() == 0 || dataList == null){
             setDefaultToolBarConfig();
         }
         else {

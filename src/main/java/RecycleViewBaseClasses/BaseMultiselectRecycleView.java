@@ -37,7 +37,7 @@ public abstract class BaseMultiselectRecycleView < T extends BaseModel, Z extend
     public void onBindViewHolder(final Z holder, int position) {
 
         onBind(holder,position);
-        final BaseModel model = dataList.get(position);
+
 
         if(isMultiSelectEnable) {
 
@@ -47,18 +47,18 @@ public abstract class BaseMultiselectRecycleView < T extends BaseModel, Z extend
                 @Override
                 public boolean onLongClick(View v) {
 
-                    BaseModel selectedModel = (BaseModel) v.getTag();
-                    selectedModel.setSelectedImageResource(R.mipmap.ic_tick);
+                    int pos = (int)v.getTag();
+                    dataList.get(pos).setSelectedImageResource(R.mipmap.ic_tick);
                     MultiSelectImageView imageView = null;
-                    if(!selectedModel.isSelected()) {
+                    if(!dataList.get(pos).isSelected()) {
 
                         if(selectList == null) {
                             selectList = new ArrayList<T>();
                         }
-                        selectedModel.setSelected(true);
+                        dataList.get(pos).setSelected(true);
                         imageView = (MultiSelectImageView) holder.itemView.findViewById(setImageResource);
-                        imageView.setImageResource(selectedModel.getSelectedImageResource());
-                        selectList.add((T) selectedModel);
+                        imageView.setImageResource(dataList.get(pos).getSelectedImageResource());
+                        selectList.add((T) dataList.get(pos));
 
                         if(selectList.size() > 0)
                             isMultipleItemSelected = true;
@@ -69,9 +69,9 @@ public abstract class BaseMultiselectRecycleView < T extends BaseModel, Z extend
                         if(imageView == null) {
                             imageView = (MultiSelectImageView) holder.itemView.findViewById(setImageResource);
                         }
-                        selectedModel.setSelected(false);
+                        dataList.get(pos).setSelected(false);
                         imageView.setPreviousBitMap();
-                        selectList.remove(selectedModel);
+                        selectList.remove(dataList.get(pos));
                         baseFragmentManager.multiSelectPerfromed(selectList);
                     }
                     return true;
@@ -84,14 +84,15 @@ public abstract class BaseMultiselectRecycleView < T extends BaseModel, Z extend
 
                     if(isMultipleItemSelected) {
                         MultiSelectImageView imageView;
-                        BaseModel selectedModel = (BaseModel) v.getTag();
-                        selectedModel.setSelectedImageResource(R.mipmap.ic_tick);
-                        if (!selectedModel.isSelected()) {
+                        int pos = (int)v.getTag();
 
-                            selectedModel.setSelected(true);
+                        dataList.get(pos).setSelectedImageResource(R.mipmap.ic_tick);
+                        if (!dataList.get(pos).isSelected()) {
+
+                            dataList.get(pos).setSelected(true);
                             imageView = (MultiSelectImageView) holder.itemView.findViewById(setImageResource);
-                            imageView.setImageResource(selectedModel.getSelectedImageResource());
-                            selectList.add((T) selectedModel);
+                            imageView.setImageResource(dataList.get(pos).getSelectedImageResource());
+                            selectList.add((T) dataList.get(pos));
                             baseFragmentManager.multiSelectPerfromed(selectList);
 
                         }
@@ -99,8 +100,8 @@ public abstract class BaseMultiselectRecycleView < T extends BaseModel, Z extend
                         {
                             imageView = (MultiSelectImageView) holder.itemView.findViewById(setImageResource);
                             imageView.setPreviousBitMap();
-                            selectedModel.setSelected(false);
-                            selectList.remove(selectedModel);
+                            dataList.get(pos).setSelected(false);
+                            selectList.remove(dataList.get(pos));
                             if(selectList.size() == 0){
                                 isMultipleItemSelected = false;
                             }
@@ -112,16 +113,16 @@ public abstract class BaseMultiselectRecycleView < T extends BaseModel, Z extend
         }
 
         MultiSelectImageView imageView = (MultiSelectImageView) holder.itemView.findViewById(setImageResource);
-        if(model.isSelected()){
+        if(dataList.get(position).isSelected()){
 
-            imageView.setImageResource(model.getSelectedImageResource());
+            imageView.setImageResource(dataList.get(position).getSelectedImageResource());
         }
         else
         {
             imageView.getPreviousImageBitmap();
         }
 
-        holder.itemView.setTag(model);
+        holder.itemView.setTag(position);
 
     }
 
@@ -131,5 +132,15 @@ public abstract class BaseMultiselectRecycleView < T extends BaseModel, Z extend
 
     public void setMultiSelectEnableListener(MultiSelectEnableListener<T> multiSelectEnableListener) {
         this.multiSelectEnableListener = multiSelectEnableListener;
+    }
+    public ArrayList<T> getSelectList() {
+        return selectList;
+    }
+
+    public void setSelectList(ArrayList<T> selectList) {
+        this.selectList = selectList;
+    }
+    public void setMultipleItemSelected(boolean multipleItemSelected) {
+        isMultipleItemSelected = multipleItemSelected;
     }
 }

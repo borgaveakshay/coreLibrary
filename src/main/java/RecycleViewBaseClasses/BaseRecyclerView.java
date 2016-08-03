@@ -36,6 +36,11 @@ public abstract class BaseRecyclerView < T extends BaseModel, Z extends Recycler
 
     }
 
+    public void setDataList(ArrayList<T> dataList) {
+        this.dataList = dataList;
+    }
     public abstract Z onCreateView(ViewGroup parent, int viewType);
     public abstract void onBind(Z holder, int pos);
+
+
 }

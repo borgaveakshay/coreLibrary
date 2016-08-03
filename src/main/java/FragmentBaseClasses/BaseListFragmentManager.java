@@ -15,13 +15,14 @@ import RecycleViewBaseClasses.BaseMultiselectRecycleView;
 public class BaseListFragmentManager< T extends BaseModel, Z extends BaseMultiselectRecycleView> extends BaseFragmentManager implements MultiSelectEnableListener<T> {
 
     protected ArrayList<T> dataList;
+    protected ArrayList<T> selectedList;
     boolean isMultiSelectEnable;
     protected Z baseListRecyclerViewAdapter;
     protected RecyclerView recyclerView;
 
     @Override
     public void multiSelectPerfromed(ArrayList<T> dataList) {
-        this.dataList = dataList;
+        this.selectedList = dataList;
         getAppActivity().multiSelectPerfromed(dataList);
 
 
@@ -32,19 +33,18 @@ public class BaseListFragmentManager< T extends BaseModel, Z extends BaseMultise
 
      if(isMultiSelectEnable()) {
 
-         for (int i = 0; i < dataList.size(); i++) {
+         baseListRecyclerViewAdapter.setSelectList(new ArrayList<T>());
+         for (int i = 0 ; i < dataList.size(); i++){
 
-             if (dataList.get(i).isSelected()) {
-
-                 dataList.get(i).setSelected(false);
-             }
+             dataList.get(i).setSelected(false);
          }
-         if (recyclerView != null) {
-             if (baseListRecyclerViewAdapter != null)
-                 recyclerView.setAdapter(baseListRecyclerViewAdapter);
-         }
+         baseListRecyclerViewAdapter.notifyDataSetChanged();
+         baseListRecyclerViewAdapter.setMultipleItemSelected(false);
      }
-        super.onBackPressed();
+     else {
+
+         super.onBackPressed();
+     }
  }
 
     public boolean isMultiSelectEnable() {
