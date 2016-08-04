@@ -28,6 +28,7 @@ public abstract class GenericMenuedActivity extends AppCompatActivity  implement
         setContentView(resourceId);
         setTitle(titleResorceId);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.titleBarColor));
         setSupportActionBar(toolbar);
         isNavDrawerEnabled = enableNavDrawer;
         if(enableBackButton) {
