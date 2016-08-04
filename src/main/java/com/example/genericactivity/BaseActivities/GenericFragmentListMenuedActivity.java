@@ -19,6 +19,7 @@ public  abstract class GenericFragmentListMenuedActivity < T extends BaseListFra
     int defaultTitleResourceId;
     public void onCreate(Bundle savedInstanceState, Class<T> classTemplate, int resourceId, boolean enableBackButton, boolean enableNavDrawer, int titleResorceId, boolean listMultiselectInd) {
         super.onCreate(savedInstanceState, classTemplate, resourceId,enableBackButton,enableNavDrawer, titleResorceId);
+
         listMultiselectEnableInd = listMultiselectInd;
         defaultTitleResourceId = titleResorceId;
     }
@@ -57,5 +58,8 @@ public  abstract class GenericFragmentListMenuedActivity < T extends BaseListFra
         replaceToolBarMenu(getMenuResourceId());
         disableBackButton();
         setToolbarTitle(defaultTitleResourceId);
+        if(isNavDrawerEnabled()){
+            enableNavigationDrawer();
+        }
     }
 }

@@ -2,6 +2,8 @@ package RecycleViewBaseClasses;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
+
 import BaseModels.BaseModel;
 import Interfaces.MultiSelectEnableListener;
 import UtilityBaseClasses.MultiSelectImageView;
@@ -15,7 +17,6 @@ import FragmentBaseClasses.BaseListFragmentManager;
 public abstract class BaseMultiselectRecycleView < T extends BaseModel, Z extends RecyclerView.ViewHolder> extends BaseRecyclerView< T, Z > {
 
     protected  ArrayList < T > selectList;
-    protected int parentViewResourceId;
     protected boolean isMultiSelectEnable;
     protected BaseListFragmentManager baseFragmentManager;
     protected int setImageResource;
@@ -28,6 +29,11 @@ public abstract class BaseMultiselectRecycleView < T extends BaseModel, Z extend
         setImageResource = imageResourceId;
         this.parentViewResourceId = parentViewResourceId;
 
+    }
+
+    @Override
+    public Z onCreateViewHolder(ViewGroup parent, int viewType) {
+        return onCreateView(parent,viewType);
     }
 
     @Override

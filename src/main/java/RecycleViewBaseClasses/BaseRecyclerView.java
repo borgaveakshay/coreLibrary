@@ -17,7 +17,7 @@ public abstract class BaseRecyclerView < T extends BaseModel, Z extends Recycler
    protected ArrayList < T > dataList;
    protected LayoutInflater inflater;
    protected Context con;
-
+    protected int parentViewResourceId;
     @Override
     public int getItemCount() {
         return dataList.size();

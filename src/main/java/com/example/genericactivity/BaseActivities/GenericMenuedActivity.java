@@ -11,18 +11,25 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 
 import com.example.genericactivity.R;
+
+import UtilityBaseClasses.CustomNavDrawer;
+import UtilityBaseClasses.MyDrawerLayout;
 
 public abstract class GenericMenuedActivity extends AppCompatActivity  implements NavigationView.OnNavigationItemSelectedListener{
    protected Toolbar toolbar;
    int menuResourceId;
+   protected boolean isNavDrawerEnabled;
+
     public void onCreate(Bundle savedInstanceState, int resourceId, boolean enableBackButton, boolean enableNavDrawer, int titleResorceId ){
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(resourceId);
         setTitle(titleResorceId);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        isNavDrawerEnabled = enableNavDrawer;
         if(enableBackButton) {
             enableBackButton();
         }
@@ -47,7 +54,7 @@ public abstract class GenericMenuedActivity extends AppCompatActivity  implement
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        MyDrawerLayout drawer = (MyDrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -80,7 +87,7 @@ public abstract class GenericMenuedActivity extends AppCompatActivity  implement
     public void enableNavigationDrawer(){
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        MyDrawerLayout drawer = (MyDrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
@@ -107,4 +114,11 @@ public abstract class GenericMenuedActivity extends AppCompatActivity  implement
         toolbar.getMenu().clear();
     }
 
+    public boolean isNavDrawerEnabled() {
+        return isNavDrawerEnabled;
+    }
+
+    public void setNavDrawerEnabled(boolean navDrawerEnabled) {
+        isNavDrawerEnabled = navDrawerEnabled;
+    }
 }

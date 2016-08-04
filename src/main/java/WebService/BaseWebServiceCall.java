@@ -3,6 +3,7 @@ package WebService;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.support.design.widget.Snackbar;
 
 import Interfaces.FragmentCallBacks;
 
@@ -52,7 +53,7 @@ public abstract class BaseWebServiceCall<T extends Call<Z>, Z> {
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context);
 
         alertBuilder.setTitle("Error");
-        alertBuilder.setMessage("Log : " + t.getMessage());
+        alertBuilder.setMessage("Message : " + t.getMessage());
         alertBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
