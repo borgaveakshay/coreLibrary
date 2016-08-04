@@ -1,9 +1,13 @@
 package FragmentBaseClasses;
 
 import android.content.Context;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import Interfaces.FragmentCallBacks;
@@ -12,7 +16,7 @@ import com.example.genericactivity.BaseActivities.GenericFragmentListMenuedActiv
 /**
  * Created by Akshay.Borgave on 07-03-2016.
  */
-public class BaseFragmentManager extends Fragment implements FragmentCallBacks {
+public abstract class BaseFragmentManager extends Fragment implements FragmentCallBacks {
 
     protected Context context;
     protected GenericFragmentListMenuedActivity appActivity;
@@ -66,6 +70,8 @@ public class BaseFragmentManager extends Fragment implements FragmentCallBacks {
     public void onBackPressed() {
 
     }
+
+
 
     public void setMenuResource(int menuResourceId) {
         appActivity.setMenuResourceId(menuResourceId);

@@ -22,7 +22,10 @@ public abstract class GenericMenuedActivity extends AppCompatActivity  implement
    protected Toolbar toolbar;
    int menuResourceId;
    protected boolean isNavDrawerEnabled;
-
+   protected int navigationDrawerResourceId;
+   protected int navigationViewResourceId;
+   protected MyDrawerLayout drawer;
+   protected NavigationView navigationView;
     public void onCreate(Bundle savedInstanceState, int resourceId, boolean enableBackButton, boolean enableNavDrawer, int titleResorceId ){
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(resourceId);
@@ -31,13 +34,6 @@ public abstract class GenericMenuedActivity extends AppCompatActivity  implement
         toolbar.setTitleTextColor(getResources().getColor(R.color.titleBarColor));
         setSupportActionBar(toolbar);
         isNavDrawerEnabled = enableNavDrawer;
-        if(enableBackButton) {
-            enableBackButton();
-        }
-
-        if(enableNavDrawer){
-            enableNavigationDrawer();
-        }
     }
 
     @Override
@@ -55,7 +51,7 @@ public abstract class GenericMenuedActivity extends AppCompatActivity  implement
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        MyDrawerLayout drawer = (MyDrawerLayout) findViewById(R.id.drawer_layout);
+         drawer = (MyDrawerLayout) findViewById(getNavigationViewResourceId());
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -88,13 +84,13 @@ public abstract class GenericMenuedActivity extends AppCompatActivity  implement
     public void enableNavigationDrawer(){
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        MyDrawerLayout drawer = (MyDrawerLayout) findViewById(R.id.drawer_layout);
+        MyDrawerLayout drawer = (MyDrawerLayout) findViewById(getNavigationDrawerResourceId());
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(getNavigationViewResourceId());
         navigationView.setNavigationItemSelectedListener(this);
     }
     public void replaceToolBarMenu(int menuResourceId){
@@ -122,4 +118,20 @@ public abstract class GenericMenuedActivity extends AppCompatActivity  implement
     public void setNavDrawerEnabled(boolean navDrawerEnabled) {
         isNavDrawerEnabled = navDrawerEnabled;
     }
+    public int getNavigationDrawerResourceId() {
+        return navigationDrawerResourceId;
+    }
+
+    public void setNavigationDrawerResourceId(int navigationDrawerResourceId) {
+        this.navigationDrawerResourceId = navigationDrawerResourceId;
+    }
+
+    public int getNavigationViewResourceId() {
+        return navigationViewResourceId;
+    }
+
+    public void setNavigationViewResourceId(int navigationViewResourceId) {
+        this.navigationViewResourceId = navigationViewResourceId;
+    }
+
 }

@@ -1,28 +1,32 @@
 package com.example.genericactivity.BaseActivities;
 
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.example.genericactivity.R;
 
 import FragmentBaseClasses.BaseFragmentManager;
 import Interfaces.FragmentCallBacks;
+import UtilityBaseClasses.MyDrawerLayout;
 
 /**
  * Created by Akshay.Borgave on 31-03-2016.
  */
-public class GenericFragmentMenuedActivity < T extends BaseFragmentManager> extends GenericMenuedActivity {
+public abstract class GenericFragmentMenuedActivity < T extends BaseFragmentManager> extends GenericMenuedActivity {
 
     protected FragmentCallBacks callBacks;
     public T fragment;
-    Class<T> tClass;
+    protected Class<T> tClass;
 
     public void onCreate(Bundle savedInstanceState, Class<T> classTemplate, int resourceId, boolean enableBackButton, boolean enableNavDrawer, int titleResorceId) {
-        super.onCreate(savedInstanceState, resourceId, enableBackButton, enableNavDrawer, titleResorceId);
-        try {
 
-             tClass =  classTemplate;
+        try {
+            super.onCreate(savedInstanceState,resourceId,enableBackButton,enableNavDrawer,titleResorceId);
+            tClass =  classTemplate;
             if(savedInstanceState == null)
                 initializeFragment();
 
@@ -49,6 +53,18 @@ public class GenericFragmentMenuedActivity < T extends BaseFragmentManager> exte
         // Commit the transaction
         transaction.commit();
 
+    }
+    public void enableNavigationDrawer(){
+
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        MyDrawerLayout drawer = (MyDrawerLayout) fragment.contentView.findViewById(getNavigationDrawerResourceId());
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        navigationView = (NavigationView) fragment.contentView.findViewById(getNavigationViewResourceId());
+        navigationView.setNavigationItemSelectedListener(this);
     }
 
     @Override

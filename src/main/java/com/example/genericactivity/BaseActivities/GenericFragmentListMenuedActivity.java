@@ -62,4 +62,6 @@ public  abstract class GenericFragmentListMenuedActivity < T extends BaseListFra
             enableNavigationDrawer();
         }
     }
+
+
 }
