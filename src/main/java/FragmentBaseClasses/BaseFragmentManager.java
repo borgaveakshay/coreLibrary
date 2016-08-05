@@ -35,14 +35,6 @@ public abstract class BaseFragmentManager extends Fragment implements FragmentCa
         return onViewCreated(inflater, container, savedInstanceState);
     }
 
-    public GenericFragmentListMenuedActivity getAppListMenuedActivity() {
-        return appListMenuedActivity;
-    }
-
-    public GenericFragmentMenuedActivity getAppMenuedActivity() {
-        return appMenuedActivity;
-    }
-
     @Override
     public void showProgressIndicator() {
 
@@ -114,32 +106,36 @@ public abstract class BaseFragmentManager extends Fragment implements FragmentCa
         return progressBarResourceId;
     }
 
-    public void setProgressBarResourceId(int progressBarResourceId) {
-        this.progressBarResourceId = progressBarResourceId;
-    }
-
     public View getContentView() {
         return contentView;
     }
 
-    public void setContentView(View contentView) {
-        this.contentView = contentView;
+    public GenericFragmentListMenuedActivity getAppListMenuedActivity() {
+        return appListMenuedActivity;
     }
 
+    public GenericFragmentMenuedActivity getAppMenuedActivity() {
+        return appMenuedActivity;
+    }
     /**
-     * This Method should be call explicitly after view is initialized in onViewCreated method so as to call all abstract initialization methods.
+     * This Method should be called explicitly after view is initialized in onViewCreated method so as to call all abstract initialization methods.
      * Which will set all the resources required.
      */
     public void initFragment() {
 
         setRetainInstance(true);
+
         contentView = setFragmentView();
+        progressBarResourceId = setProgressBarResourceId();
         appListMenuedActivity = setMenuedListActivity();
         appMenuedActivity = setMenuedActivity();
+
         if (appListMenuedActivity != null) {
             appListMenuedActivity.setMenuResourceId(setMenuResourceId());
             appListMenuedActivity.setCallBacks(this);
-        } else if (appMenuedActivity != null) {
+
+        }
+        else if (appMenuedActivity != null) {
             appMenuedActivity.setCallBacks(this);
             appListMenuedActivity.setMenuResourceId(setMenuResourceId());
         }
@@ -188,5 +184,9 @@ public abstract class BaseFragmentManager extends Fragment implements FragmentCa
      */
     public abstract View onViewCreated(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState);
 
+    /**
+     * @return Initialise ProgressBar from Fragment View
+     */
+    public abstract int setProgressBarResourceId();
 
 }
