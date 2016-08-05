@@ -24,8 +24,9 @@ public abstract class BaseFragmentManager extends Fragment implements FragmentCa
     protected GenericFragmentListMenuedActivity appListMenuedActivity;
     protected GenericFragmentMenuedActivity appMenuedActivity;
     ProgressBar progressView;
-    public View contentView;
+    static public View contentView;
     public int progressBarResourceId;
+    protected static int menuResourceId;
 
 
     @Nullable
@@ -125,19 +126,20 @@ public abstract class BaseFragmentManager extends Fragment implements FragmentCa
 
         setRetainInstance(true);
 
-        contentView = setFragmentView();
+        contentView = setFragmentView() != null ? setFragmentView() : contentView;
         progressBarResourceId = setProgressBarResourceId();
         appListMenuedActivity = setMenuedListActivity();
         appMenuedActivity = setMenuedActivity();
+        menuResourceId = menuResourceId != 0 ? menuResourceId : setMenuResourceId();
 
         if (appListMenuedActivity != null) {
-            appListMenuedActivity.setMenuResourceId(setMenuResourceId());
+            appListMenuedActivity.setMenuResourceId(menuResourceId);
             appListMenuedActivity.setCallBacks(this);
 
         }
         else if (appMenuedActivity != null) {
             appMenuedActivity.setCallBacks(this);
-            appListMenuedActivity.setMenuResourceId(setMenuResourceId());
+            appListMenuedActivity.setMenuResourceId(menuResourceId);
         }
     }
 
