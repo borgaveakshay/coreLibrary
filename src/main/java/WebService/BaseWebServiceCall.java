@@ -14,7 +14,7 @@ import retrofit2.Response;
 /**
  * Created by Akshay.Borgave on 01-06-2016.
  */
-public abstract class BaseWebServiceCall<T extends Call<Z>, Z> {
+public abstract class BaseWebServiceCall<T extends Call<Z>, Z> extends Thread {
 
     T callBack;
     Context context;
@@ -25,7 +25,6 @@ public abstract class BaseWebServiceCall<T extends Call<Z>, Z> {
         this.context = context;
         callBack = callBackInstance;
         this.fragmentCallBacks = fragmentCallBacks;
-        makeCall();
     }
 
     public void makeCall() {
@@ -44,6 +43,7 @@ public abstract class BaseWebServiceCall<T extends Call<Z>, Z> {
                     fragmentCallBacks.hideProgressIndicator();
                     showErrorDialog(t);
                     onCallFailure(call, t);
+
                 }
             });
     }
@@ -62,6 +62,11 @@ public abstract class BaseWebServiceCall<T extends Call<Z>, Z> {
         });
         alertDialog = alertBuilder.create();
         alertDialog.show();
+    }
+
+    @Override
+    public void run() {
+        makeCall();
     }
 
     public abstract void onResponseReceived(Z data);
