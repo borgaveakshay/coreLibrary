@@ -12,36 +12,36 @@ import android.widget.ProgressBar;
 
 import Interfaces.FragmentCallBacks;
 import com.example.genericactivity.BaseActivities.GenericFragmentListMenuedActivity;
+import com.example.genericactivity.BaseActivities.GenericFragmentMenuedActivity;
 
 /**
  * Created by Akshay.Borgave on 07-03-2016.
+ *
  */
 public abstract class BaseFragmentManager extends Fragment implements FragmentCallBacks {
 
     protected Context context;
-    protected GenericFragmentListMenuedActivity appActivity;
+    protected GenericFragmentListMenuedActivity appListMenuedActivity;
+    protected GenericFragmentMenuedActivity appMenuedActivity;
     ProgressBar progressView;
     public View contentView;
     public int progressBarResourceId;
 
 
+    @Nullable
     @Override
-    public Context getContext() {
-        return context;
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+        return onViewCreated(inflater, container, savedInstanceState);
     }
 
-    public void setContext(Context context) {
-        this.context = context;
+    public GenericFragmentListMenuedActivity getAppListMenuedActivity() {
+        return appListMenuedActivity;
     }
 
-    public GenericFragmentListMenuedActivity getAppActivity() {
-        return appActivity;
+    public GenericFragmentMenuedActivity getAppMenuedActivity() {
+        return appMenuedActivity;
     }
-
-    public void setAppActivity(GenericFragmentListMenuedActivity appActivity) {
-        this.appActivity = appActivity;
-    }
-
     @Override
     public void showProgressIndicator() {
 
@@ -71,10 +71,11 @@ public abstract class BaseFragmentManager extends Fragment implements FragmentCa
 
     }
 
-
-
     public void setMenuResource(int menuResourceId) {
-        appActivity.setMenuResourceId(menuResourceId);
+        if(appListMenuedActivity != null)
+        appListMenuedActivity.setMenuResourceId(menuResourceId);
+        else if(appMenuedActivity != null)
+            appMenuedActivity.setMenuResourceId(menuResourceId);
     }
 
     public int getProgressBarResourceId() {
@@ -93,23 +94,75 @@ public abstract class BaseFragmentManager extends Fragment implements FragmentCa
         this.contentView = contentView;
     }
 
+    /**
+     * This Method should be call explicitly after view is initialized in onViewCreated method so as to call all abstract initialization methods.
+     * Which will set all the resources required.
+     *
+     */
     public void initFragment() {
 
         setRetainInstance(true);
+        contentView = setFragmentView();
+        appListMenuedActivity = setMenuedListActivity();
+        appMenuedActivity = setMenuedActivity();
+        if(appListMenuedActivity != null){
+            appListMenuedActivity.setMenuResourceId(setMenuResourceId());
+            appListMenuedActivity.setCallBacks(this);
+        }
 
+        else if(appMenuedActivity != null) {
+            appMenuedActivity.setCallBacks(this);
+            appListMenuedActivity.setMenuResourceId(setMenuResourceId());
+        }
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        appActivity.setCallBacks(this);
+        if(appListMenuedActivity != null)
+        appListMenuedActivity.setCallBacks(this);
+        else if(appMenuedActivity != null)
+            appMenuedActivity.setCallBacks(this);
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        appActivity.setCallBacks(this);
+        if(appListMenuedActivity != null)
+            appListMenuedActivity.setCallBacks(this);
+        else if(appMenuedActivity != null)
+            appMenuedActivity.setCallBacks(this);
     }
+
+    /**
+     *
+     * @return Sets Toolbar Menu according to returned resource Id;
+     */
+    public abstract int setMenuResourceId();
+
+    /**
+     *
+     * @return It will set Fragment view in base class so as to fetch view components if required.
+     */
+    public abstract View setFragmentView();
+
+    /**
+     *
+     * @return Sets the @GenericFragmentListMenuedActivity instance so that it can call methods inside Activity if required by fragment.
+     */
+    public abstract GenericFragmentMenuedActivity setMenuedActivity();
+
+    /**
+     *
+     * @return Sets the @GenericFragmentMenuedActivity instance so that it can call methods inside Activity if required by fragment.
+     */
+    public abstract GenericFragmentListMenuedActivity setMenuedListActivity();
+
+    /**
+     *
+     * @return Initialise fragment view components here.
+     */
+    public abstract View onViewCreated(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState);
 
 
 }

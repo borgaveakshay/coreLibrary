@@ -2,6 +2,8 @@ package FragmentBaseClasses;
 
 import android.support.v7.widget.RecyclerView;
 
+import com.example.genericactivity.BaseActivities.GenericFragmentMenuedActivity;
+
 import BaseModels.BaseModel;
 import Interfaces.MultiSelectEnableListener;
 
@@ -12,7 +14,7 @@ import RecycleViewBaseClasses.BaseMultiselectRecycleView;
 /**
  * Created by Akshay.Borgave on 02-08-2016.
  */
-public class BaseListFragmentManager< T extends BaseModel, Z extends BaseMultiselectRecycleView> extends BaseFragmentManager implements MultiSelectEnableListener<T> {
+public abstract class BaseListFragmentManager< T extends BaseModel, Z extends BaseMultiselectRecycleView> extends BaseFragmentManager implements MultiSelectEnableListener<T> {
 
     protected ArrayList<T> dataList;
     protected ArrayList<T> selectedList;
@@ -23,7 +25,7 @@ public class BaseListFragmentManager< T extends BaseModel, Z extends BaseMultise
     @Override
     public void multiSelectPerfromed(ArrayList<T> dataList) {
         this.selectedList = dataList;
-        getAppActivity().multiSelectPerfromed(dataList);
+        getAppListMenuedActivity().multiSelectPerfromed(dataList);
 
 
     }
@@ -51,7 +53,16 @@ public class BaseListFragmentManager< T extends BaseModel, Z extends BaseMultise
         return isMultiSelectEnable;
     }
 
-    public void setMultiSelectEnable(boolean multiSelectEnable) {
-        isMultiSelectEnable = multiSelectEnable;
+    @Override
+    public GenericFragmentMenuedActivity setMenuedActivity() {
+        return (GenericFragmentMenuedActivity) getActivity();
     }
+
+    @Override
+    public void initFragment() {
+        isMultiSelectEnable = setMultiSelectFlag();
+        super.initFragment();
+    }
+
+    public abstract boolean setMultiSelectFlag();
 }
