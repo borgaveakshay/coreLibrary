@@ -20,6 +20,7 @@ public abstract class BaseWebServiceCall<T extends Call<Z>, Z> extends Thread {
     Context context;
     AlertDialog alertDialog;
     FragmentCallBacks fragmentCallBacks;
+    boolean isProgressBarEnabled;
 
     public BaseWebServiceCall(Context context, T callBackInstance, FragmentCallBacks fragmentCallBacks) {
         this.context = context;
@@ -29,8 +30,10 @@ public abstract class BaseWebServiceCall<T extends Call<Z>, Z> extends Thread {
 
     public void makeCall() {
 
-            fragmentCallBacks.showProgressIndicator();
-            callBack.enqueue(new Callback<Z>() {
+            if(isProgressBarEnabled()) {
+                fragmentCallBacks.showProgressIndicator();
+            }
+            callBack.clone().enqueue(new Callback<Z>() {
                 @Override
                 public void onResponse(Call<Z> call, Response<Z> response) {
 
@@ -40,7 +43,9 @@ public abstract class BaseWebServiceCall<T extends Call<Z>, Z> extends Thread {
                 @Override
                 public void onFailure(final Call<Z> call, final Throwable t) {
 
-                    fragmentCallBacks.hideProgressIndicator();
+                    if(isProgressBarEnabled()) {
+                        fragmentCallBacks.hideProgressIndicator();
+                    }
                     showErrorDialog(t);
                     onCallFailure(call, t);
 
@@ -67,6 +72,14 @@ public abstract class BaseWebServiceCall<T extends Call<Z>, Z> extends Thread {
     @Override
     public void run() {
         makeCall();
+    }
+
+    public boolean isProgressBarEnabled() {
+        return isProgressBarEnabled;
+    }
+
+    public void setProgressBarEnabled(boolean progressBarenebled) {
+        isProgressBarEnabled = progressBarenebled;
     }
 
     public abstract void onResponseReceived(Z data);

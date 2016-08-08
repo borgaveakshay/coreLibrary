@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import BaseModels.BaseModel;
+import FragmentBaseClasses.BaseFragmentManager;
 
 import java.util.ArrayList;
 
@@ -17,10 +18,13 @@ public abstract class BaseRecyclerView < T extends BaseModel, Z extends Recycler
    protected ArrayList < T > dataList;
    protected LayoutInflater inflater;
    protected Context con;
-    protected int parentViewResourceId;
+   protected int parentViewResourceId;
+   protected boolean isLoading;
+   protected BaseFragmentManager baseFragmentManager;
+
     @Override
     public int getItemCount() {
-        return dataList.size();
+        return dataList == null ? 0 : dataList.size();
     }
 
     @Override
@@ -34,6 +38,9 @@ public abstract class BaseRecyclerView < T extends BaseModel, Z extends Recycler
 
         onBind(holder,position);
 
+    }
+    public void setLoaded() {
+        isLoading = false;
     }
 
     public void setDataList(ArrayList<T> dataList) {

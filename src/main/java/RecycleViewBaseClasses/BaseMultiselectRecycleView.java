@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import BaseModels.BaseModel;
+import FragmentBaseClasses.BaseListMultiSelectFragmentManager;
 import Interfaces.MultiSelectEnableListener;
 import UtilityBaseClasses.MultiSelectImageView;
 import com.example.genericactivity.R;
@@ -18,7 +19,7 @@ public abstract class BaseMultiselectRecycleView < T extends BaseModel, Z extend
 
     protected  ArrayList < T > selectList;
     protected boolean isMultiSelectEnable;
-    protected BaseListFragmentManager baseFragmentManager;
+    protected BaseListMultiSelectFragmentManager baseFragmentManager;
     protected int setImageResource;
     protected boolean isMultipleItemSelected;
     protected MultiSelectEnableListener< T > multiSelectEnableListener;

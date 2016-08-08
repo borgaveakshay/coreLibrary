@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import Interfaces.FragmentCallBacks;
+import WebService.BaseWebServiceCall;
 
 import com.example.genericactivity.BaseActivities.GenericFragmentListMenuedActivity;
 import com.example.genericactivity.BaseActivities.GenericFragmentMenuedActivity;
@@ -27,7 +28,7 @@ public abstract class BaseFragmentManager extends Fragment implements FragmentCa
     static public View contentView;
     public int progressBarResourceId;
     protected static int menuResourceId;
-
+    protected BaseWebServiceCall webServiceCall;
 
     @Nullable
     @Override

@@ -10,59 +10,20 @@ import Interfaces.MultiSelectEnableListener;
 import java.util.ArrayList;
 
 import RecycleViewBaseClasses.BaseMultiselectRecycleView;
+import RecycleViewBaseClasses.BaseRecyclerView;
 
 /**
  * Created by Akshay.Borgave on 02-08-2016.
  */
-public abstract class BaseListFragmentManager< T extends BaseModel, Z extends BaseMultiselectRecycleView> extends BaseFragmentManager implements MultiSelectEnableListener<T> {
+public abstract class BaseListFragmentManager< T extends BaseModel, Z extends BaseRecyclerView> extends BaseFragmentManager  {
 
     protected ArrayList<T> dataList;
-    protected ArrayList<T> selectedList;
-    boolean isMultiSelectEnable;
     protected Z baseListRecyclerViewAdapter;
     protected RecyclerView recyclerView;
-
-    @Override
-    public void multiSelectPerfromed(ArrayList<T> dataList) {
-        this.selectedList = dataList;
-        getAppListMenuedActivity().multiSelectPerfromed(dataList);
-
-
-    }
-
-    @Override
-    public void onBackPressed() {
-
-     if(isMultiSelectEnable()) {
-
-         baseListRecyclerViewAdapter.setSelectList(new ArrayList<T>());
-         for (int i = 0 ; i < dataList.size(); i++){
-
-             dataList.get(i).setSelected(false);
-         }
-         baseListRecyclerViewAdapter.notifyDataSetChanged();
-         baseListRecyclerViewAdapter.setMultipleItemSelected(false);
-     }
-     else {
-
-         super.onBackPressed();
-     }
- }
-
-    public boolean isMultiSelectEnable() {
-        return isMultiSelectEnable;
-    }
 
     @Override
     public GenericFragmentMenuedActivity setMenuedActivity() {
         return (GenericFragmentMenuedActivity) getActivity();
     }
 
-    @Override
-    public void initFragment() {
-        isMultiSelectEnable = setMultiSelectFlag();
-        super.initFragment();
-    }
-
-    public abstract boolean setMultiSelectFlag();
 }
