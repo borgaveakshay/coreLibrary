@@ -18,12 +18,15 @@ public abstract class BaseInfiniteListFragmentManager<T extends BaseModel,Y exte
     @Override
     public void onLoadMore() {
 
+        dataList.add(null);
+        baseListRecyclerViewAdapter.notifyItemInserted(dataList.size());
         webServiceCall = new BaseWebServiceCall<Call<ArrayList<T>>, ArrayList<T>>(getAppListMenuedActivity(), call, this) {
 
 
             @Override
             public void onResponseReceived(ArrayList<T> data) {
-
+                dataList.remove(dataList.size() - 1);
+                baseListRecyclerViewAdapter.notifyItemRemoved(dataList.size());
                 dataList.addAll(data);
                 baseListRecyclerViewAdapter.notifyDataSetChanged();
                 baseListRecyclerViewAdapter.setLoaded();

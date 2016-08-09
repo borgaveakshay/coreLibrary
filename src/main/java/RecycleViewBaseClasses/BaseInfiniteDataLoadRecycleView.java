@@ -26,7 +26,7 @@ public abstract class BaseInfiniteDataLoadRecycleView < T extends BaseModel,Z ex
     private RecyclerView recyclerView;
     int totalItemCount;
     int lastVisibleItem;
-    int visibleThreshold = 5;
+    int visibleThreshold = 1;
 
     public BaseInfiniteDataLoadRecycleView(RecyclerView recyclerView) {
         setRecyclerView(recyclerView);
@@ -37,7 +37,7 @@ public abstract class BaseInfiniteDataLoadRecycleView < T extends BaseModel,Z ex
     @Override
     public Z onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == VIEW_TYPE_LOADING) {
-            View view = LayoutInflater.from(con).inflate(R.layout.progress_bar, parent, false);
+            View view = LayoutInflater.from(con).inflate(R.layout.litview_progress_bar, null);
             return ((Z) new LoadingViewHolder(view));
         }
         else if(viewType == VIEW_TYPE_ITEM)
@@ -52,7 +52,7 @@ public abstract class BaseInfiniteDataLoadRecycleView < T extends BaseModel,Z ex
 
         if(holder instanceof LoadingViewHolder){
 
-            ((LoadingViewHolder) holder).progressBar.setVisibility(View.VISIBLE);
+            ((LoadingViewHolder) holder).progressBar.setIndeterminate(true);
         }
         else {
             onBind(holder,position);
@@ -64,7 +64,7 @@ public abstract class BaseInfiniteDataLoadRecycleView < T extends BaseModel,Z ex
 
         public LoadingViewHolder(View itemView) {
             super(itemView);
-            progressBar = (ProgressBar) itemView.findViewById(R.id.progressBar);
+            progressBar = (ProgressBar) itemView.findViewById(R.id.progressBarlistView);
         }
     }
 
@@ -93,6 +93,7 @@ public abstract class BaseInfiniteDataLoadRecycleView < T extends BaseModel,Z ex
                 lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition();
 
                 if (!isLoading && totalItemCount <= (lastVisibleItem + visibleThreshold)) {
+
                     if (onLoadMoreListener != null) {
                         onLoadMoreListener.onLoadMore();
                     }
