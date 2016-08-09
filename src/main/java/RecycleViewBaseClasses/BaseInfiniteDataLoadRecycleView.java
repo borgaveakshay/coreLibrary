@@ -23,10 +23,9 @@ public abstract class BaseInfiniteDataLoadRecycleView < T extends BaseModel,Z ex
     private final int VIEW_TYPE_ITEM = 0;
     private final int VIEW_TYPE_LOADING = 1;
     private OnLoadMoreListener onLoadMoreListener;
-    private RecyclerView recyclerView;
     int totalItemCount;
     int lastVisibleItem;
-    int visibleThreshold = 1;
+    int visibleThreshold = 5;
 
     public BaseInfiniteDataLoadRecycleView(RecyclerView recyclerView) {
         setRecyclerView(recyclerView);
@@ -72,9 +71,7 @@ public abstract class BaseInfiniteDataLoadRecycleView < T extends BaseModel,Z ex
         this.onLoadMoreListener = onLoadMoreListener;
     }
 
-    public void setRecyclerView(RecyclerView recyclerView) {
-        this.recyclerView = recyclerView;
-    }
+
 
     @Override
     public int getItemViewType(int position) {
@@ -89,15 +86,40 @@ public abstract class BaseInfiniteDataLoadRecycleView < T extends BaseModel,Z ex
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
 
+                if(baseFragmentManager.getAppListMenuedActivity().isScrollBarHideOnScroll()) {
+                    if (dy > 20) {
+                        baseFragmentManager.getAppListMenuedActivity().setToolBarHidden(false);
+
+                    } else if (dy < -5) {
+                        baseFragmentManager.getAppListMenuedActivity().setToolBarHidden(true);
+                    }
+                }
                 totalItemCount = linearLayoutManager.getItemCount();
                 lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition();
+
 
                 if (!isLoading && totalItemCount <= (lastVisibleItem + visibleThreshold)) {
 
                     if (onLoadMoreListener != null) {
+
                         onLoadMoreListener.onLoadMore();
                     }
                     isLoading = true;
+                }
+            }
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+
+                if(baseFragmentManager.getAppListMenuedActivity().isScrollBarHideOnScroll()) {
+                    if (baseFragmentManager.getAppListMenuedActivity().isToolBarHidden()) {
+                        baseFragmentManager.getAppListMenuedActivity().showToolBar();
+
+                    } else {
+                        baseFragmentManager.getAppListMenuedActivity().hideToolBar();
+
+                    }
                 }
             }
         });

@@ -20,6 +20,7 @@ public abstract class BaseRecyclerView < T extends BaseModel, Z extends Recycler
    protected Context con;
    protected int parentViewResourceId;
    protected boolean isLoading;
+   protected RecyclerView recyclerView;
    protected BaseFragmentManager baseFragmentManager;
 
     @Override
@@ -43,6 +44,9 @@ public abstract class BaseRecyclerView < T extends BaseModel, Z extends Recycler
         isLoading = false;
     }
 
+    public void setRecyclerView(RecyclerView recyclerView) {
+        this.recyclerView = recyclerView;
+    }
     public void setDataList(ArrayList<T> dataList) {
         this.dataList = dataList;
     }

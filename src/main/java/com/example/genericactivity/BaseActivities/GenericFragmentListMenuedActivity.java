@@ -17,6 +17,7 @@ public  abstract class GenericFragmentListMenuedActivity < T extends BaseListFra
     ArrayList<Z> dataList;
     boolean listMultiselectEnableInd;
     int defaultTitleResourceId;
+
     public void onCreate(Bundle savedInstanceState, Class<T> classTemplate, int resourceId, boolean enableBackButton, boolean enableNavDrawer, int titleResorceId, boolean listMultiselectInd) {
         super.onCreate(savedInstanceState, classTemplate, resourceId,enableBackButton,enableNavDrawer, titleResorceId);
 

@@ -22,6 +22,7 @@ public abstract class GenericFragmentMenuedActivity < T extends BaseFragmentMana
     public T fragment;
     protected Class<T> tClass;
 
+
     public void onCreate(Bundle savedInstanceState, Class<T> classTemplate, int resourceId, boolean enableBackButton, boolean enableNavDrawer, int titleResorceId) {
 
         try {
@@ -66,6 +67,8 @@ public abstract class GenericFragmentMenuedActivity < T extends BaseFragmentMana
         navigationView = (NavigationView) fragment.contentView.findViewById(getNavigationViewResourceId());
         navigationView.setNavigationItemSelectedListener(this);
     }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

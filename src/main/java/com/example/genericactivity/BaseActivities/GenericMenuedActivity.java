@@ -26,6 +26,9 @@ public abstract class GenericMenuedActivity extends AppCompatActivity  implement
    protected int navigationViewResourceId;
    protected MyDrawerLayout drawer;
    protected NavigationView navigationView;
+   protected boolean isToolBarHidden;
+   protected boolean isScrollBarHideOnScroll;
+
     public void onCreate(Bundle savedInstanceState, int resourceId, boolean enableBackButton, boolean enableNavDrawer, int titleResorceId ){
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(resourceId);
@@ -107,6 +110,24 @@ public abstract class GenericMenuedActivity extends AppCompatActivity  implement
         getSupportActionBar().setTitle(getResources().getString(titleResourceId));
     }
 
+    public void hideToolBar(){
+        getSupportActionBar().hide();
+        setToolBarHidden(true);
+    }
+
+    public void showToolBar(){
+
+        getSupportActionBar().show();
+        setToolBarHidden(false);
+    }
+
+    public boolean isToolBarHidden() {
+        return isToolBarHidden;
+    }
+
+    public void setToolBarHidden(boolean toolBarHidden) {
+        isToolBarHidden = toolBarHidden;
+    }
     public void clearToolBarMenu(){
         toolbar.getMenu().clear();
     }
@@ -133,5 +154,13 @@ public abstract class GenericMenuedActivity extends AppCompatActivity  implement
     public void setNavigationViewResourceId(int navigationViewResourceId) {
         this.navigationViewResourceId = navigationViewResourceId;
     }
+    public boolean isScrollBarHideOnScroll() {
+        return isScrollBarHideOnScroll;
+    }
+
+    public void setScrollBarHideOnScroll(boolean scrollBarHideOnScroll) {
+        isScrollBarHideOnScroll = scrollBarHideOnScroll;
+    }
+
 
 }
