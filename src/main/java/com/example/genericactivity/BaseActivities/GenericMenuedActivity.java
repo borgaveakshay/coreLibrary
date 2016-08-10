@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.view.animation.AccelerateInterpolator;
 
 import com.example.genericactivity.R;
 
@@ -106,7 +107,7 @@ public abstract class GenericMenuedActivity extends AppCompatActivity  implement
         getSupportActionBar().setDisplayShowHomeEnabled(false);
     }
 
-    public void setToolbarTitle(int titleResourceId){
+    public void setToolbarTitleResource(int titleResourceId){
         getSupportActionBar().setTitle(getResources().getString(titleResourceId));
     }
 

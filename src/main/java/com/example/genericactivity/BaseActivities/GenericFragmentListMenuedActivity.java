@@ -58,7 +58,7 @@ public  abstract class GenericFragmentListMenuedActivity < T extends BaseListFra
         clearToolBarMenu();
         replaceToolBarMenu(getMenuResourceId());
         disableBackButton();
-        setToolbarTitle(defaultTitleResourceId);
+        setToolbarTitleResource(defaultTitleResourceId);
         if(isNavDrawerEnabled()){
             enableNavigationDrawer();
         }

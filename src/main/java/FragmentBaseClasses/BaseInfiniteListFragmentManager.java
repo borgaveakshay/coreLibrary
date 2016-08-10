@@ -22,7 +22,6 @@ public abstract class BaseInfiniteListFragmentManager<T extends BaseModel,Y exte
         baseListRecyclerViewAdapter.notifyItemInserted(dataList.size());
         webServiceCall = new BaseWebServiceCall<Call<ArrayList<T>>, ArrayList<T>>(getAppListMenuedActivity(), call, this) {
 
-
             @Override
             public void onResponseReceived(ArrayList<T> data) {
                 dataList.remove(dataList.size() - 1);

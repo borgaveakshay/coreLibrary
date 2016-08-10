@@ -16,18 +16,18 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
             android:background="@color/colorAccent"
-            app:popupTheme="@style/AppTheme"
-            android:orientation="vertical" />
+            android:orientation="vertical"
+            app:popupTheme="@style/AppTheme" />
 
 
-                <FrameLayout
-                    android:id="@+id/frameLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+        <FrameLayout
+            android:id="@+id/frameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-                </FrameLayout>
-
+        </FrameLayout>
 
 
     </LinearLayout>
