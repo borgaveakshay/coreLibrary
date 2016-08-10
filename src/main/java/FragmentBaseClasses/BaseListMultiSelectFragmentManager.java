@@ -21,6 +21,11 @@ public abstract class BaseListMultiSelectFragmentManager < T extends BaseModel, 
     protected Z baseListRecyclerViewAdapter;
     protected RecyclerView recyclerView;
 
+    /**
+     *
+     * @param dataList
+     * Method gets called when user start selecting items from the list by long pressing the items.
+     */
     @Override
     public void multiSelectPerfromed(ArrayList<T> dataList) {
         this.selectedList = dataList;
@@ -48,6 +53,11 @@ public abstract class BaseListMultiSelectFragmentManager < T extends BaseModel, 
         }
     }
 
+    /**
+     *
+     * @return @isMultiSelectEnable
+     * It Notifies whether multi select feature for list is enabled or not.
+     */
     public boolean isMultiSelectEnable() {
         return isMultiSelectEnable;
     }
@@ -63,6 +73,11 @@ public abstract class BaseListMultiSelectFragmentManager < T extends BaseModel, 
         super.initFragment();
     }
 
-
+    /**
+     *
+     * @return @isMultiSelectEnable
+     * This method should be overridden by the extended class to notify whether it is supporting multi select functionality or not.
+     * Default is false.
+     */
     public abstract boolean setMultiSelectFlag();
 }

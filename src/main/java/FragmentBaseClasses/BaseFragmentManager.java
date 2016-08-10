@@ -37,6 +37,9 @@ public abstract class BaseFragmentManager extends Fragment implements FragmentCa
         return onViewCreated(inflater, container, savedInstanceState);
     }
 
+    /**
+     * It will show the progress bar if provided in xml layout file after starting the network call
+     */
     @Override
     public void showProgressIndicator() {
 
@@ -47,7 +50,9 @@ public abstract class BaseFragmentManager extends Fragment implements FragmentCa
                     @Override
                     public void run() {
                         progressView = (ProgressBar) getView().findViewById(getProgressBarResourceId());
-                        progressView.setVisibility(View.VISIBLE);
+                        if(progressView != null) {
+                            progressView.setVisibility(View.VISIBLE);
+                        }
                     }
                 });
             } else if (appMenuedActivity != null) ;
@@ -55,7 +60,9 @@ public abstract class BaseFragmentManager extends Fragment implements FragmentCa
                 @Override
                 public void run() {
                     progressView = (ProgressBar) getView().findViewById(getProgressBarResourceId());
-                    progressView.setVisibility(View.VISIBLE);
+                    if(progressView != null) {
+                        progressView.setVisibility(View.VISIBLE);
+                    }
                 }
             });
         } catch (Exception e) {
@@ -63,6 +70,9 @@ public abstract class BaseFragmentManager extends Fragment implements FragmentCa
         }
     }
 
+    /**
+     * It will hide the progress bar if provided in xml layout file after finishing the network call
+     */
     @Override
     public void hideProgressIndicator() {
 
@@ -87,11 +97,19 @@ public abstract class BaseFragmentManager extends Fragment implements FragmentCa
         }
     }
 
+    /**
+     *
+     * @param menuItem
+     * Method gets called when any munu item is clicked.
+     */
     @Override
     public void handleMenuClick(MenuItem menuItem) {
 
     }
 
+    /**
+     * Method gets called when user clicks back button.
+     */
     @Override
     public void onBackPressed() {
 

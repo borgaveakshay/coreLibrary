@@ -39,6 +39,14 @@ public abstract class GenericFragmentMenuedActivity < T extends BaseFragmentMana
         }
     }
 
+
+    /**
+     *
+     * @throws IllegalAccessException
+     * @throws InstantiationException
+     *
+     * It will initialize fragmenttemplatee provided in onCreate method.
+     */
     private void initializeFragment( ) throws IllegalAccessException, InstantiationException {
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -76,10 +84,20 @@ public abstract class GenericFragmentMenuedActivity < T extends BaseFragmentMana
         return true;
     }
 
+    /**
+     *
+     * @return FragmentCallBacks
+     * It will return the instance of fargment class that is implementing @FragmentCallBacks interface.
+     */
     public FragmentCallBacks getCallBacks() {
         return callBacks;
     }
 
+    /**
+     *
+     * @return FragmentCallBacks
+     * It will set the instance of fargment class that is implementing @FragmentCallBacks interface.
+     */
     public void setCallBacks(FragmentCallBacks callBacks) {
         this.callBacks = callBacks;
     }

@@ -86,7 +86,7 @@ public abstract class BaseInfiniteDataLoadRecycleView < T extends BaseModel,Z ex
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
 
-                if(baseFragmentManager.getAppListMenuedActivity().isScrollBarHideOnScroll()) {
+                if(baseFragmentManager.getAppListMenuedActivity().isToolBarHideOnScroll()) {
                     if (dy > 20) {
                         baseFragmentManager.getAppListMenuedActivity().setToolBarHidden(false);
 
@@ -112,7 +112,7 @@ public abstract class BaseInfiniteDataLoadRecycleView < T extends BaseModel,Z ex
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
 
-                if(baseFragmentManager.getAppListMenuedActivity().isScrollBarHideOnScroll()) {
+                if(baseFragmentManager.getAppListMenuedActivity().isToolBarHideOnScroll()) {
                     if (baseFragmentManager.getAppListMenuedActivity().isToolBarHidden()) {
                         baseFragmentManager.getAppListMenuedActivity().showToolBar();
 

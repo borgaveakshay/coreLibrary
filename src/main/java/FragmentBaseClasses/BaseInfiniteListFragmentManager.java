@@ -15,6 +15,10 @@ import retrofit2.Call;
 public abstract class BaseInfiniteListFragmentManager<T extends BaseModel,Y extends Call<T>, Z extends BaseInfiniteDataLoadRecycleView> extends BaseListFragmentManager<T,Z> implements OnLoadMoreListener {
    protected Call<ArrayList<T>> call;
 
+    /**
+     * Method gets called when user scrolls down to last element of the list.
+     * This method will invoke service call which will fetch data from network service and will notify adapter for updated data.
+     */
     @Override
     public void onLoadMore() {
 

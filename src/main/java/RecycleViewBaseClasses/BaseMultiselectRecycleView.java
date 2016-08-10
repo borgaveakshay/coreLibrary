@@ -129,20 +129,46 @@ public abstract class BaseMultiselectRecycleView < T extends BaseModel, Z extend
 
     }
 
+    /**
+     *
+     * @return multiSelectEnableListener
+     * I will return instance of recycle view which implements @MultiSelectEnableListener interface.
+     */
     public MultiSelectEnableListener<T> getMultiSelectEnableListener() {
         return multiSelectEnableListener;
     }
-
+    /**
+     *
+     * @return multiSelectEnableListener
+     * I will set instance of recycle view which implements @MultiSelectEnableListener interface.
+     */
     public void setMultiSelectEnableListener(MultiSelectEnableListener<T> multiSelectEnableListener) {
         this.multiSelectEnableListener = multiSelectEnableListener;
     }
+
+    /**
+     *
+     * @return selectList
+     * It will return the selected list from the list.
+     */
     public ArrayList<T> getSelectList() {
         return selectList;
     }
 
+    /**
+     *
+     * @return selectList
+     * It will set the selected list from the list.
+     */
     public void setSelectList(ArrayList<T> selectList) {
         this.selectList = selectList;
     }
+
+    /**
+     *
+     * @param multipleItemSelected
+     * If there is atleast one item is selected in list. it should be call to notify
+     */
     public void setMultipleItemSelected(boolean multipleItemSelected) {
         isMultipleItemSelected = multipleItemSelected;
     }

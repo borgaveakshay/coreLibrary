@@ -29,9 +29,13 @@ public abstract class BaseListFragmentManager< T extends BaseModel, Z extends Ba
         return (GenericFragmentMenuedActivity) getActivity();
     }
 
+    /**
+     * You can call this method to hide toolbar while scrolling the list. It will only work if @getAppListMenuedActivity.setOnScrollHideToolBarListener is set to true.
+     * Note: This method should be called after initializing recycle view.
+     */
     public void setOnScrollHideToolBarListener(){
 
-        if(getAppListMenuedActivity().isScrollBarHideOnScroll())
+        if(getAppListMenuedActivity().isToolBarHideOnScroll())
         {
             if(recyclerView != null) {
                 recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -39,7 +43,7 @@ public abstract class BaseListFragmentManager< T extends BaseModel, Z extends Ba
                     public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                         super.onScrolled(recyclerView, dx, dy);
 
-                        if (getAppListMenuedActivity().isScrollBarHideOnScroll()) {
+                        if (getAppListMenuedActivity().isToolBarHideOnScroll()) {
                             if (dy > 20) {
                                 getAppListMenuedActivity().setToolBarHidden(false);
 
@@ -54,7 +58,7 @@ public abstract class BaseListFragmentManager< T extends BaseModel, Z extends Ba
                     public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                         super.onScrollStateChanged(recyclerView, newState);
 
-                        if (getAppListMenuedActivity().isScrollBarHideOnScroll()) {
+                        if (getAppListMenuedActivity().isToolBarHideOnScroll()) {
                             if (getAppListMenuedActivity().isToolBarHidden()) {
                                 getAppListMenuedActivity().showToolBar();
 

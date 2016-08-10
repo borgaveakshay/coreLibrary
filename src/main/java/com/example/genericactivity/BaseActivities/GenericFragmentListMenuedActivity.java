@@ -25,6 +25,11 @@ public  abstract class GenericFragmentListMenuedActivity < T extends BaseListFra
         defaultTitleResourceId = titleResorceId;
     }
 
+    /**
+     *
+     * @param dataList
+     * Method gets called for @BaseListFragmentManager
+     */
     @Override
     public void multiSelectPerfromed(ArrayList<Z> dataList) {
 

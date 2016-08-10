@@ -44,13 +44,34 @@ public abstract class BaseRecyclerView < T extends BaseModel, Z extends Recycler
         isLoading = false;
     }
 
+    /**
+     *
+     * @param recyclerView
+     * It sets the recycle view instance which binds to the adaptor.
+     */
     public void setRecyclerView(RecyclerView recyclerView) {
         this.recyclerView = recyclerView;
     }
+
     public void setDataList(ArrayList<T> dataList) {
         this.dataList = dataList;
     }
+
+    /**
+     *
+     * @param parent
+     * @param viewType
+     * @return Z
+     * This method called to initialize view for one every list component.
+     */
     public abstract Z onCreateView(ViewGroup parent, int viewType);
+
+    /**
+     *
+     * @param holder
+     * @param pos
+     * Method gets called to bind data with view for a particular position in the list.
+     */
     public abstract void onBind(Z holder, int pos);
 
 
