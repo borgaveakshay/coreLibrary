@@ -1,9 +1,11 @@
 package BaseModels;
 
+import java.io.Serializable;
+
 /**
  * Created by Akshay.Borgave on 01-08-2016.
  */
-public class BaseModel {
+public class BaseModel implements Serializable{
     boolean selected;
     int selectedImageResource;
 
