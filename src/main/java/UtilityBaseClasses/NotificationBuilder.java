@@ -21,9 +21,10 @@ public class NotificationBuilder {
     NotificationCompat.Builder notificationCompatBuilder;
     Intent notificationIntent;
     PendingIntent pendingIntent;
-    Bitmap notificationBitmap;
+    Bitmap bigStyleNotificationBitmap;
+    String bigStyleNotificationText;
 
-    private NotificationBuilder(Context con, String notificaionContentTitle, String notificationContentText , int drawableResource, int notificationId, Intent intent, PendingIntent pendingIntent, Bitmap bitmap)
+    private NotificationBuilder(Context con, String notificaionContentTitle, String notificationContentText , int drawableResource, int notificationId, Intent intent, PendingIntent pendingIntent, Bitmap bitmap, String bigStyleText)
     {
 
         context = con;
@@ -33,7 +34,8 @@ public class NotificationBuilder {
         this.notificationId = notificationId;
         this.pendingIntent = pendingIntent;
         notificationIntent = intent;
-        notificationBitmap = bitmap;
+        bigStyleNotificationBitmap = bitmap;
+        bigStyleNotificationText = bigStyleText;
         notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
     }
 
@@ -47,7 +49,8 @@ public class NotificationBuilder {
         int builderNotificationId;
         Intent notificationBuilderIntent;
         PendingIntent builderPendingIntent;
-        Bitmap builderNotificationBitmap;
+        Bitmap builderBigStyleNotificationBitmap;
+        String builderBigStyleText;
 
         public Builder(Context context){
 
@@ -96,7 +99,8 @@ public class NotificationBuilder {
                     builderNotificationId,
                     notificationBuilderIntent,
                     builderPendingIntent,
-                    builderNotificationBitmap);
+                    builderBigStyleNotificationBitmap,
+                    builderBigStyleText);
 
             notificationBuilder.notificationCompatBuilder = new NotificationCompat.Builder(builderContext);
 
@@ -109,8 +113,11 @@ public class NotificationBuilder {
             if(notificationBuilder.notificationDrawableResource != 0)
                 notificationBuilder.notificationCompatBuilder.setSmallIcon(notificationBuilder.notificationDrawableResource);
 
-            if(notificationBuilder.notificationBitmap != null)
-                notificationBuilder.notificationCompatBuilder.setLargeIcon(notificationBuilder.notificationBitmap);
+            if(notificationBuilder.bigStyleNotificationBitmap != null){
+                notificationBuilder.notificationCompatBuilder.setStyle(new NotificationCompat.BigPictureStyle().bigPicture(notificationBuilder.bigStyleNotificationBitmap));
+            }
+            if(notificationBuilder.bigStyleNotificationText != null)
+                notificationBuilder.notificationCompatBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(notificationBuilder.bigStyleNotificationText));
 
             return notificationBuilder;
         }
@@ -179,12 +186,23 @@ public class NotificationBuilder {
             return this;
         }
 
-        public Bitmap getBuilderNotificationBitmap() {
-            return builderNotificationBitmap;
+        public Bitmap getBuilderBigStytleNotificationBitmap() {
+            return builderBigStyleNotificationBitmap;
         }
 
-        public NotificationBuilder.Builder  setBuilderNotificationBitmap(Bitmap builderNotificationBitmap) {
-            this.builderNotificationBitmap = builderNotificationBitmap;
+        public NotificationBuilder.Builder  setBuilderBigStyleNotificationBitmap(Bitmap builderNotificationBitmap) {
+            this.builderBigStyleNotificationBitmap = builderNotificationBitmap;
+
+            return this;
+        }
+
+        public String getBuilderBigStyleText() {
+            return builderBigStyleText;
+        }
+
+        public NotificationBuilder.Builder setBuilderBigStyleText(String bigStyleText) {
+            this.builderBigStyleText = bigStyleText;
+
             return this;
         }
 
