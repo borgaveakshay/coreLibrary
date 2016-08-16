@@ -28,29 +28,41 @@ public abstract class BaseWebServiceCall<T extends Call<Z>, Z> extends Thread {
         this.fragmentCallBacks = fragmentCallBacks;
     }
 
+    public BaseWebServiceCall(Context context, T callBackInstance) {
+        this.context = context;
+        callBack = callBackInstance;
+    }
+
     public void makeCall() {
 
-            if(isProgressBarEnabled()) {
+        if (isProgressBarEnabled()) {
+            if (fragmentCallBacks != null)
                 fragmentCallBacks.showProgressIndicator();
-            }
-            callBack.clone().enqueue(new Callback<Z>() {
-                @Override
-                public void onResponse(Call<Z> call, Response<Z> response) {
+        }
+        callBack.clone().enqueue(new Callback<Z>() {
+            @Override
+            public void onResponse(Call<Z> call, Response<Z> response) {
 
-                    fragmentCallBacks.hideProgressIndicator();
-                    onResponseReceived(response.body());
-                }
-                @Override
-                public void onFailure(final Call<Z> call, final Throwable t) {
-
-                    if(isProgressBarEnabled()) {
+                if (isProgressBarEnabled()) {
+                    if (fragmentCallBacks != null)
                         fragmentCallBacks.hideProgressIndicator();
-                    }
-                    showErrorDialog(t);
-                    onCallFailure(call, t);
-
                 }
-            });
+                onResponseReceived(response.body());
+
+            }
+
+            @Override
+            public void onFailure(final Call<Z> call, final Throwable t) {
+
+                if (isProgressBarEnabled()) {
+                    if (fragmentCallBacks != null)
+                        fragmentCallBacks.hideProgressIndicator();
+                }
+                showErrorDialog(t);
+                onCallFailure(call, t);
+
+            }
+        });
     }
 
     public void showErrorDialog(Throwable t) {
@@ -70,7 +82,7 @@ public abstract class BaseWebServiceCall<T extends Call<Z>, Z> extends Thread {
     }
 
     @Override
-    public void run() {
+    public synchronized void run() {
         makeCall();
     }
 

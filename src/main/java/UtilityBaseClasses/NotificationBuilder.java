@@ -119,6 +119,9 @@ public class NotificationBuilder {
             if(notificationBuilder.bigStyleNotificationText != null)
                 notificationBuilder.notificationCompatBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(notificationBuilder.bigStyleNotificationText));
 
+            if(notificationBuilder.pendingIntent != null)
+                notificationBuilder.notificationCompatBuilder.setContentIntent(notificationBuilder.pendingIntent);
+
             return notificationBuilder;
         }
 
@@ -173,10 +176,23 @@ public class NotificationBuilder {
             return builderPendingIntent;
         }
 
-        public  NotificationBuilder.Builder  setBuilderPendingIntent() {
+        public  NotificationBuilder.Builder  setBuilderPendingIntentForActivity() {
 
             if(notificationBuilderIntent != null) {
                 builderPendingIntent = PendingIntent.getActivity(
+                        builderContext,
+                        0,
+                        notificationBuilderIntent,
+                        PendingIntent.FLAG_UPDATE_CURRENT
+                );
+            }
+            return this;
+        }
+
+        public  NotificationBuilder.Builder  setBuilderPendingIntentForBroadcastReceiver() {
+
+            if(notificationBuilderIntent != null) {
+                builderPendingIntent = PendingIntent.getBroadcast(
                         builderContext,
                         0,
                         notificationBuilderIntent,
