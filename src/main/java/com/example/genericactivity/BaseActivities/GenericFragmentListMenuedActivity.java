@@ -15,13 +15,11 @@ import Interfaces.MultiSelectEnableListener;
 public  abstract class GenericFragmentListMenuedActivity < T extends BaseListFragmentManager, Z > extends GenericFragmentMenuedActivity<T> implements MultiSelectEnableListener<Z> {
 
     ArrayList<Z> dataList;
-    boolean listMultiselectEnableInd;
     int defaultTitleResourceId;
 
-    public void onCreate(Bundle savedInstanceState, Class<T> classTemplate, int resourceId, boolean enableBackButton, boolean enableNavDrawer, int titleResorceId, boolean listMultiselectInd) {
-        super.onCreate(savedInstanceState, classTemplate, resourceId,enableBackButton,enableNavDrawer, titleResorceId);
+    public void onCreate(Bundle savedInstanceState, Class<T> classTemplate, int resourceId,  int titleResorceId) {
+        super.onCreate(savedInstanceState, classTemplate, resourceId, titleResorceId);
 
-        listMultiselectEnableInd = listMultiselectInd;
         defaultTitleResourceId = titleResorceId;
     }
 
@@ -48,7 +46,7 @@ public  abstract class GenericFragmentListMenuedActivity < T extends BaseListFra
 
     @Override
     public void onBackButtonPressed() {
-        if(listMultiselectEnableInd){
+        if(isListMultiselectEnableInd()){
             setDefaultToolBarConfig();
             callBacks.onBackPressed();
         }
@@ -68,6 +66,14 @@ public  abstract class GenericFragmentListMenuedActivity < T extends BaseListFra
             enableNavigationDrawer();
         }
     }
+
+    /**
+     *
+     * @return boolean
+     * Implement this method to notify the list should provide mechanism for multiselect.
+     * Note: For this to work we have to implement @BaseMultiSelectRecycleView as adapter.
+     */
+    public abstract boolean isListMultiselectEnableInd();
 
 
 }

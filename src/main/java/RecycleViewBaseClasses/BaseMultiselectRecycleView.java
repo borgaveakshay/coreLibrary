@@ -24,110 +24,83 @@ public abstract class BaseMultiselectRecycleView < T extends BaseModel, Z extend
     protected boolean isMultipleItemSelected;
     protected MultiSelectEnableListener< T > multiSelectEnableListener;
 
-    public BaseMultiselectRecycleView(boolean doMultiSelectEnable, int imageResourceId, int parentViewResourceId) {
+    public BaseMultiselectRecycleView(boolean doMultiSelectEnable, int imageResourceId) {
 
         isMultiSelectEnable = doMultiSelectEnable;
         setImageResource = imageResourceId;
-        this.parentViewResourceId = parentViewResourceId;
 
     }
-
-    @Override
-    public Z onCreateViewHolder(ViewGroup parent, int viewType) {
-        return onCreateView(parent,viewType);
-    }
-
     @Override
     public void onBindViewHolder(final Z holder, int position) {
 
-        onBind(holder,position);
-
-        if(isMultiSelectEnable) {
-
-            View view = holder.itemView.findViewById(parentViewResourceId);
-
-            view.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-
-                    int pos = (int)v.getTag();
-                    dataList.get(pos).setSelectedImageResource(R.mipmap.ic_tick);
-                    MultiSelectImageView imageView = null;
-                    if(!dataList.get(pos).isSelected()) {
-
-                        if(selectList == null) {
-                            selectList = new ArrayList<T>();
-                        }
-                        dataList.get(pos).setSelected(true);
-                        imageView = (MultiSelectImageView) holder.itemView.findViewById(setImageResource);
-                        imageView.setImageResource(dataList.get(pos).getSelectedImageResource());
-                        selectList.add((T) dataList.get(pos));
-
-                        if(selectList.size() > 0)
-                            isMultipleItemSelected = true;
-                        baseFragmentManager.multiSelectPerfromed(selectList);
-                    }
-                    else
-                    {
-                        if(imageView == null) {
-                            imageView = (MultiSelectImageView) holder.itemView.findViewById(setImageResource);
-                        }
-                        dataList.get(pos).setSelected(false);
-                        imageView.setPreviousBitMap();
-                        selectList.remove(dataList.get(pos));
-                        baseFragmentManager.multiSelectPerfromed(selectList);
-                    }
-                    return true;
-                }
-            });
-
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    if(isMultipleItemSelected) {
-                        MultiSelectImageView imageView;
-                        int pos = (int)v.getTag();
-
-                        dataList.get(pos).setSelectedImageResource(R.mipmap.ic_tick);
-                        if (!dataList.get(pos).isSelected()) {
-
-                            dataList.get(pos).setSelected(true);
-                            imageView = (MultiSelectImageView) holder.itemView.findViewById(setImageResource);
-                            imageView.setImageResource(dataList.get(pos).getSelectedImageResource());
-                            selectList.add((T) dataList.get(pos));
-                            baseFragmentManager.multiSelectPerfromed(selectList);
-
-                        }
-                        else
-                        {
-                            imageView = (MultiSelectImageView) holder.itemView.findViewById(setImageResource);
-                            imageView.setPreviousBitMap();
-                            dataList.get(pos).setSelected(false);
-                            selectList.remove(dataList.get(pos));
-                            if(selectList.size() == 0){
-                                isMultipleItemSelected = false;
-                            }
-                            baseFragmentManager.multiSelectPerfromed(selectList);
-                        }
-                    }
-                }
-            });
-        }
+        super.onBindViewHolder(holder,position);
 
         MultiSelectImageView imageView = (MultiSelectImageView) holder.itemView.findViewById(setImageResource);
         if(dataList.get(position).isSelected()){
 
             imageView.setImageResource(dataList.get(position).getSelectedImageResource());
         }
-        else
-        {
-            imageView.getPreviousImageBitmap();
-        }
-
-        holder.itemView.setTag(position);
-
+        onBind(holder,position);
     }
+
+    @Override
+    public void onLongItemClickListener(Z viewHolder, int position) {
+
+        if(isMultiSelectEnable) {
+            dataList.get(position).setSelectedImageResource(R.mipmap.ic_tick);
+            MultiSelectImageView imageView = null;
+            if (!dataList.get(position).isSelected()) {
+
+                if (selectList == null) {
+                    selectList = new ArrayList<T>();
+                }
+                dataList.get(position).setSelected(true);
+                imageView = (MultiSelectImageView) viewHolder.itemView.findViewById(setImageResource);
+                imageView.setImageResource(dataList.get(position).getSelectedImageResource());
+                selectList.add((T) dataList.get(position));
+
+                if (selectList.size() > 0)
+                    isMultipleItemSelected = true;
+                baseFragmentManager.multiSelectPerfromed(selectList);
+            } else {
+                if (imageView == null) {
+                    imageView = (MultiSelectImageView) viewHolder.itemView.findViewById(setImageResource);
+                }
+                dataList.get(position).setSelected(false);
+                imageView.setPreviousBitMap();
+                selectList.remove(dataList.get(position));
+                baseFragmentManager.multiSelectPerfromed(selectList);
+            }
+        }
+    }
+
+    @Override
+    public void onItemClickListener(Z viewHolder, int position) {
+
+        MultiSelectImageView imageView;
+        if(isMultipleItemSelected) {
+
+            dataList.get(position).setSelectedImageResource(R.mipmap.ic_tick);
+            if (!dataList.get(position).isSelected()) {
+
+                dataList.get(position).setSelected(true);
+                imageView = (MultiSelectImageView) viewHolder.itemView.findViewById(setImageResource);
+                imageView.setImageResource(dataList.get(position).getSelectedImageResource());
+                selectList.add((T) dataList.get(position));
+                baseFragmentManager.multiSelectPerfromed(selectList);
+
+            } else {
+                imageView = (MultiSelectImageView) viewHolder.itemView.findViewById(setImageResource);
+                imageView.setPreviousBitMap();
+                dataList.get(position).setSelected(false);
+                selectList.remove(dataList.get(position));
+                if (selectList.size() == 0) {
+                    isMultipleItemSelected = false;
+                }
+                baseFragmentManager.multiSelectPerfromed(selectList);
+            }
+        }
+ }
 
     /**
      *

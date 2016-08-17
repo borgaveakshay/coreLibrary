@@ -100,7 +100,7 @@ public abstract class BaseFragmentManager extends Fragment implements FragmentCa
     /**
      *
      * @param menuItem
-     * Method gets called when any munu item is clicked.
+     * Method gets called when any menu item is clicked.
      */
     @Override
     public void handleMenuClick(MenuItem menuItem) {

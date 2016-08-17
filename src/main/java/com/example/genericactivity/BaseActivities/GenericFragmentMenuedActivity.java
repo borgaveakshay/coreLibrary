@@ -23,10 +23,10 @@ public abstract class GenericFragmentMenuedActivity < T extends BaseFragmentMana
     protected Class<T> tClass;
 
 
-    public void onCreate(Bundle savedInstanceState, Class<T> classTemplate, int resourceId, boolean enableBackButton, boolean enableNavDrawer, int titleResorceId) {
+    public void onCreate(Bundle savedInstanceState, Class<T> classTemplate, int resourceId,  int titleResorceId) {
 
         try {
-            super.onCreate(savedInstanceState,resourceId,enableBackButton,enableNavDrawer,titleResorceId);
+            super.onCreate(savedInstanceState,resourceId,titleResorceId);
             tClass =  classTemplate;
             if(savedInstanceState == null)
                 initializeFragment();

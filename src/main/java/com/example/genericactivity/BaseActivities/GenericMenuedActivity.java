@@ -30,14 +30,13 @@ public abstract class GenericMenuedActivity extends AppCompatActivity  implement
    protected boolean isToolBarHidden;
    protected boolean isToolBarHideOnScroll;
 
-    public void onCreate(Bundle savedInstanceState, int resourceId, boolean enableBackButton, boolean enableNavDrawer, int titleResorceId ){
+    public void onCreate(Bundle savedInstanceState, int resourceId, int titleResorceId ){
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(resourceId);
         setTitle(titleResorceId);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitleTextColor(getResources().getColor(R.color.titleBarColor));
         setSupportActionBar(toolbar);
-        isNavDrawerEnabled = enableNavDrawer;
     }
 
     @Override

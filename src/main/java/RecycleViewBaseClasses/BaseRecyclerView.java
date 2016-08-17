@@ -3,6 +3,7 @@ package RecycleViewBaseClasses;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import BaseModels.BaseModel;
@@ -18,7 +19,6 @@ public abstract class BaseRecyclerView < T extends BaseModel, Z extends Recycler
    protected ArrayList < T > dataList;
    protected LayoutInflater inflater;
    protected Context con;
-   protected int parentViewResourceId;
    protected boolean isLoading;
    protected RecyclerView recyclerView;
    protected BaseFragmentManager baseFragmentManager;
@@ -35,8 +35,25 @@ public abstract class BaseRecyclerView < T extends BaseModel, Z extends Recycler
     }
 
     @Override
-    public void onBindViewHolder(final Z holder, int position) {
+    public void onBindViewHolder(final Z holder, final int position) {
 
+
+        holder.itemView.setTag(position);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onItemClickListener(holder,(int)v.getTag());
+            }
+        });
+
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                onLongItemClickListener(holder,(int) v.getTag());
+                return true;
+            }
+        });
         onBind(holder,position);
 
     }
@@ -73,6 +90,20 @@ public abstract class BaseRecyclerView < T extends BaseModel, Z extends Recycler
      * Method gets called to bind data with view for a particular position in the list.
      */
     public abstract void onBind(Z holder, int pos);
+
+    /**
+     *
+     * @param position
+     * Method gets called when user clicks on a particular item.
+     */
+    public abstract void onItemClickListener(Z viewHolder, int position);
+
+    /**
+     *
+     * @param position
+     * Method gets called when user Long Press on a particular item.
+     */
+    public abstract void onLongItemClickListener(Z viewHolder,int position);
 
 
 }

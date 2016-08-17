@@ -13,7 +13,7 @@ import RecycleViewBaseClasses.BaseMultiselectRecycleView;
 /**
  * Created by Akshay.Borgave on 08-08-2016.
  */
-public abstract class BaseListMultiSelectFragmentManager < T extends BaseModel, Z extends BaseMultiselectRecycleView> extends BaseFragmentManager implements MultiSelectEnableListener<T> {
+public abstract class BaseListMultiSelectFragmentManager < T extends BaseModel, Z extends BaseMultiselectRecycleView> extends BaseListFragmentManager implements MultiSelectEnableListener<T> {
 
     protected ArrayList<T> dataList;
     protected ArrayList<T> selectedList;
