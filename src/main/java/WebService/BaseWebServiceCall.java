@@ -48,7 +48,6 @@ public abstract class BaseWebServiceCall<T extends Call<Z>, Z> extends Thread {
                         fragmentCallBacks.hideProgressIndicator();
                 }
                 onResponseReceived(response.body());
-
             }
 
             @Override

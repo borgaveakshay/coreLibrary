@@ -122,18 +122,38 @@ public abstract class BaseFragmentManager extends Fragment implements FragmentCa
             appMenuedActivity.setMenuResourceId(menuResourceId);
     }
 
+    /**
+     *
+     * @return progressBarResourceId
+     * It returns Progress Bar resource id from layout if set o/w 0.
+     */
     public int getProgressBarResourceId() {
         return progressBarResourceId;
     }
 
+    /**
+     *
+     * @return contentView
+     * This will return view set for the Fragment.
+     */
     public View getContentView() {
         return contentView;
     }
 
+    /**
+     *
+     * @return appListMenuedActivity
+     * Returns ListActivity instance
+     */
     public GenericFragmentListMenuedActivity getAppListMenuedActivity() {
         return appListMenuedActivity;
     }
 
+    /**
+     *
+     * @return appMenuedActivity
+     * Returns Menued Activity Instance.
+     */
     public GenericFragmentMenuedActivity getAppMenuedActivity() {
         return appMenuedActivity;
     }
