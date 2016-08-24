@@ -1,5 +1,28 @@
 apply plugin: 'com.android.library'
+ // refereance link for uploading lib to jCenter https://inthecheesefactory.com/blog/how-to-upload-library-to-jcenter-maven-central-as-dependency/en
+ext {
+    bintrayRepo = 'coreimpl'
+    bintrayName = 'CoreLibraryModule'
 
+    publishedGroupId = 'com.borgave.corelib'
+    libraryName = 'CoreLibraryModule'
+    artifact = 'CoreLibraryModule'
+
+    libraryDescription = 'A wrapper for Basic generic class implementation for development with Android'
+
+    siteUrl = 'https://github.com/borgaveakshay/coreLibrary'
+    gitUrl = 'https://github.com/borgaveakshay/coreLibrary.git'
+
+    libraryVersion = '0.1.1'
+
+    developerId = 'borgaveakshay'
+    developerName = 'Akshay Borgave'
+    developerEmail = 'borgave.akshay@gmail.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.1"
@@ -38,4 +61,7 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:3.5.2'
     compile 'com.android.support:support-v4:23.4.0'
     compile 'com.android.support:cardview-v7:23.4.0'
+
 }
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
