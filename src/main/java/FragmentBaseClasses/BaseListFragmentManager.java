@@ -60,10 +60,10 @@ public abstract class BaseListFragmentManager< T extends BaseModel, Z extends Ba
 
                         if (getAppListMenuedActivity().isToolBarHideOnScroll()) {
                             if (getAppListMenuedActivity().isToolBarHidden()) {
-                                getAppListMenuedActivity().showToolBar();
+                                getAppListMenuedActivity().showToolBarWithAnimation();
 
                             } else {
-                                getAppListMenuedActivity().hideToolBar();
+                                getAppListMenuedActivity().hideToolBarWithAnimation();
                             }
                         }
                     }

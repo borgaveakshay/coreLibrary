@@ -23,20 +23,30 @@ public class NotificationBuilder {
     PendingIntent pendingIntent;
     Bitmap bigStyleNotificationBitmap;
     String bigStyleNotificationText;
+    String subTextString;
 
-    private NotificationBuilder(Context con, String notificaionContentTitle, String notificationContentText , int drawableResource, int notificationId, Intent intent, PendingIntent pendingIntent, Bitmap bitmap, String bigStyleText)
-    {
+    private NotificationBuilder(Context con,
+                                String notificaionContentTitle,
+                                String notificationContentText ,
+                                int drawableResource,
+                                int notificationId,
+                                Intent intent,
+                                PendingIntent pendingIntent,
+                                Bitmap bitmap,
+                                String bigStyleText,
+                                String subTextString){
 
-        context = con;
-        contentTitle = notificaionContentTitle;
-        contentText = notificationContentText;
-        notificationDrawableResource = drawableResource;
+        this.context = con;
+        this.contentTitle = notificaionContentTitle;
+        this.contentText = notificationContentText;
+        this.notificationDrawableResource = drawableResource;
         this.notificationId = notificationId;
         this.pendingIntent = pendingIntent;
-        notificationIntent = intent;
-        bigStyleNotificationBitmap = bitmap;
-        bigStyleNotificationText = bigStyleText;
-        notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+        this.notificationIntent = intent;
+        this.bigStyleNotificationBitmap = bitmap;
+        this.bigStyleNotificationText = bigStyleText;
+        this.subTextString = subTextString;
+        this.notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
     }
 
     public static class Builder {
@@ -51,6 +61,7 @@ public class NotificationBuilder {
         PendingIntent builderPendingIntent;
         Bitmap builderBigStyleNotificationBitmap;
         String builderBigStyleText;
+        String builderSubText;
 
         public Builder(Context context){
 
@@ -100,7 +111,8 @@ public class NotificationBuilder {
                     notificationBuilderIntent,
                     builderPendingIntent,
                     builderBigStyleNotificationBitmap,
-                    builderBigStyleText);
+                    builderBigStyleText,
+                    builderSubText);
 
             notificationBuilder.notificationCompatBuilder = new NotificationCompat.Builder(builderContext);
 
@@ -122,6 +134,11 @@ public class NotificationBuilder {
             if(notificationBuilder.pendingIntent != null)
                 notificationBuilder.notificationCompatBuilder.setContentIntent(notificationBuilder.pendingIntent);
 
+            if(notificationBuilder.subTextString != null && !notificationBuilder.subTextString.equals(""))
+                notificationBuilder.notificationCompatBuilder.setSubText(notificationBuilder.subTextString);
+
+                notificationBuilder.notificationCompatBuilder.setAutoCancel(true);
+
             return notificationBuilder;
         }
 
@@ -131,52 +148,52 @@ public class NotificationBuilder {
             return builderContentTitile;
         }
 
-        public NotificationBuilder.Builder setBuilderContentTitile(String builderContentTitile) {
+        public NotificationBuilder.Builder setContentTitile(String builderContentTitile) {
             this.builderContentTitile = builderContentTitile;
             return this;
         }
 
-        public String getBuilderContentText() {
+        public String getContentText() {
             return builderContentText;
         }
 
-        public NotificationBuilder.Builder setBuilderContentText(String builderContentText) {
+        public NotificationBuilder.Builder setContentText(String builderContentText) {
             this.builderContentText = builderContentText;
             return this;
         }
 
-        public int getBuilderNotificationDrawableResource() {
+        public int getNotificationDrawableResource() {
             return builderNotificationDrawableResource;
         }
 
-        public NotificationBuilder.Builder setBuilderNotificationDrawableResource(int builderNotificationDrawableResource) {
+        public NotificationBuilder.Builder setNotificationDrawableResource(int builderNotificationDrawableResource) {
             this.builderNotificationDrawableResource = builderNotificationDrawableResource;
             return this;
         }
 
-        public int getBuilderNotificationId() {
+        public int getNotificationId() {
             return builderNotificationId;
         }
 
-        public NotificationBuilder.Builder setBuilderNotificationId(int builderNotificationId) {
+        public NotificationBuilder.Builder setNotificationId(int builderNotificationId) {
             this.builderNotificationId = builderNotificationId;
             return  this;
         }
 
-        public Intent getNotificationBuilderIntent() {
+        public Intent getNotificationIntent() {
             return notificationBuilderIntent;
         }
 
-        public  NotificationBuilder.Builder  setNotificationBuilderIntent(Intent notificationBuilderIntent) {
+        public  NotificationBuilder.Builder  setNotificationIntent(Intent notificationBuilderIntent) {
             this.notificationBuilderIntent = notificationBuilderIntent;
             return this;
         }
 
-        public PendingIntent getBuilderPendingIntent() {
+        public PendingIntent getPendingIntent() {
             return builderPendingIntent;
         }
 
-        public  NotificationBuilder.Builder  setBuilderPendingIntentForActivity() {
+        public  NotificationBuilder.Builder  setPendingIntentForActivity() {
 
             if(notificationBuilderIntent != null) {
                 builderPendingIntent = PendingIntent.getActivity(
@@ -189,7 +206,7 @@ public class NotificationBuilder {
             return this;
         }
 
-        public  NotificationBuilder.Builder  setBuilderPendingIntentForBroadcastReceiver() {
+        public  NotificationBuilder.Builder  setPendingIntentForBroadcastReceiver() {
 
             if(notificationBuilderIntent != null) {
                 builderPendingIntent = PendingIntent.getBroadcast(
@@ -206,19 +223,27 @@ public class NotificationBuilder {
             return builderBigStyleNotificationBitmap;
         }
 
-        public NotificationBuilder.Builder  setBuilderBigStyleNotificationBitmap(Bitmap builderNotificationBitmap) {
+        public NotificationBuilder.Builder  setBigStyleNotificationBitmap(Bitmap builderNotificationBitmap) {
             this.builderBigStyleNotificationBitmap = builderNotificationBitmap;
 
             return this;
         }
 
-        public String getBuilderBigStyleText() {
+        public String getBigStyleText() {
             return builderBigStyleText;
         }
 
-        public NotificationBuilder.Builder setBuilderBigStyleText(String bigStyleText) {
+        public NotificationBuilder.Builder setBigStyleText(String bigStyleText) {
             this.builderBigStyleText = bigStyleText;
 
+            return this;
+        }
+        public String getSubText() {
+            return builderSubText;
+        }
+
+        public Builder setSubText(String builderSubText) {
+            this.builderSubText = builderSubText;
             return this;
         }
 

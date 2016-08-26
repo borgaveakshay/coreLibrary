@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
 
 import Interfaces.FragmentCallBacks;
 
@@ -17,18 +18,18 @@ import retrofit2.Response;
 public abstract class BaseWebServiceCall<T extends Call<Z>, Z> extends Thread {
 
     T callBack;
-    Context context;
+    AppCompatActivity context;
     AlertDialog alertDialog;
     FragmentCallBacks fragmentCallBacks;
     boolean isProgressBarEnabled;
 
-    public BaseWebServiceCall(Context context, T callBackInstance, FragmentCallBacks fragmentCallBacks) {
+    public BaseWebServiceCall(AppCompatActivity context, T callBackInstance, FragmentCallBacks fragmentCallBacks) {
         this.context = context;
         callBack = callBackInstance;
         this.fragmentCallBacks = fragmentCallBacks;
     }
 
-    public BaseWebServiceCall(Context context, T callBackInstance) {
+    public BaseWebServiceCall(AppCompatActivity context, T callBackInstance) {
         this.context = context;
         callBack = callBackInstance;
     }
@@ -41,13 +42,19 @@ public abstract class BaseWebServiceCall<T extends Call<Z>, Z> extends Thread {
         }
         callBack.clone().enqueue(new Callback<Z>() {
             @Override
-            public void onResponse(Call<Z> call, Response<Z> response) {
+            public void onResponse(Call<Z> call,final Response<Z> response) {
 
                 if (isProgressBarEnabled()) {
                     if (fragmentCallBacks != null)
                         fragmentCallBacks.hideProgressIndicator();
                 }
-                onResponseReceived(response.body());
+                context.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        onResponseReceived(response.body());
+                    }
+                });
+
             }
 
             @Override
@@ -58,7 +65,13 @@ public abstract class BaseWebServiceCall<T extends Call<Z>, Z> extends Thread {
                         fragmentCallBacks.hideProgressIndicator();
                 }
                 showErrorDialog(t);
-                onCallFailure(call, t);
+                context.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        onCallFailure(call, t);
+                    }
+                });
+
 
             }
         });
@@ -81,7 +94,7 @@ public abstract class BaseWebServiceCall<T extends Call<Z>, Z> extends Thread {
     }
 
     @Override
-    public synchronized void run() {
+    public void run() {
         makeCall();
     }
 

@@ -2,6 +2,7 @@ package FragmentBaseClasses;
 
 import android.support.v7.widget.RecyclerView;
 
+import com.example.genericactivity.BaseActivities.GenericFragmentListMenuedActivity;
 import com.example.genericactivity.BaseActivities.GenericFragmentMenuedActivity;
 
 import java.util.ArrayList;
@@ -19,7 +20,6 @@ public abstract class BaseListMultiSelectFragmentManager < T extends BaseModel, 
     protected ArrayList<T> selectedList;
     boolean isMultiSelectEnable;
     protected Z baseListRecyclerViewAdapter;
-    protected RecyclerView recyclerView;
 
     /**
      *
@@ -62,15 +62,16 @@ public abstract class BaseListMultiSelectFragmentManager < T extends BaseModel, 
         return isMultiSelectEnable;
     }
 
-    @Override
-    public GenericFragmentMenuedActivity setMenuedActivity() {
-        return (GenericFragmentMenuedActivity) getActivity();
-    }
 
     @Override
     public void initFragment() {
         isMultiSelectEnable = setMultiSelectFlag();
         super.initFragment();
+    }
+
+    @Override
+    public GenericFragmentListMenuedActivity setMenuedListActivity() {
+        return (GenericFragmentListMenuedActivity) getActivity();
     }
 
     /**

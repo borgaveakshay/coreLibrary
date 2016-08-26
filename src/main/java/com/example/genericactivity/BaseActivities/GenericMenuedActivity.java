@@ -8,11 +8,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.ViewUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 
 import com.example.genericactivity.R;
 
@@ -21,7 +23,7 @@ import UtilityBaseClasses.MyDrawerLayout;
 
 public abstract class GenericMenuedActivity extends AppCompatActivity  implements NavigationView.OnNavigationItemSelectedListener{
    protected Toolbar toolbar;
-   int menuResourceId;
+   static int menuResourceId;
    protected boolean isNavDrawerEnabled;
    protected int navigationDrawerResourceId;
    protected int navigationViewResourceId;
@@ -148,21 +150,40 @@ public abstract class GenericMenuedActivity extends AppCompatActivity  implement
     }
 
     /**
-     * Calling this method will hide the toolbar.
+     * Calling this method will hide the toolbar with animation.
      */
-    public void hideToolBar(){
-        getSupportActionBar().hide();
+    public void hideToolBarWithAnimation(){
+
+        toolbar.animate().translationY(-toolbar.getBottom()).start();
         setToolBarHidden(true);
+        hideToolBar();
     }
 
     /**
-     * Calling this method will show toolbar.
+     * it will show tool bar on the screen
      */
-
     public void showToolBar(){
 
         getSupportActionBar().show();
+    }
+
+    /**
+     * This method will hide toolbar.
+     */
+    public void hideToolBar(){
+
+        getSupportActionBar().hide();
+    }
+
+    /**
+     * Calling this method will show toolbar with animation.
+     */
+
+    public void showToolBarWithAnimation(){
+
+        toolbar.animate().translationY(0).start();
         setToolBarHidden(false);
+        showToolBar();
     }
 
     /**

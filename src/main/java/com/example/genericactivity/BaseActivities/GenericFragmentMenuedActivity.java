@@ -28,8 +28,7 @@ public abstract class GenericFragmentMenuedActivity < T extends BaseFragmentMana
         try {
             super.onCreate(savedInstanceState,resourceId,titleResorceId);
             tClass =  classTemplate;
-            if(savedInstanceState == null)
-                initializeFragment();
+            initializeFragment();
 
 
         } catch (IllegalAccessException e) {
@@ -49,30 +48,32 @@ public abstract class GenericFragmentMenuedActivity < T extends BaseFragmentMana
      */
     private void initializeFragment( ) throws IllegalAccessException, InstantiationException {
 
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        fragment = tClass.newInstance();
-        callBacks = (FragmentCallBacks) fragment;
 
-        // Replace whatever is in the fragment_container view with this fragment,
-        // and add the transaction to the back stack so the user can navigate back
-        transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
-        transaction.replace(R.id.frameLayout, fragment);
-        //transaction.addToBackStack(null);
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            fragment = tClass.newInstance();
+            callBacks = (FragmentCallBacks) fragment;
 
-        // Commit the transaction
-        transaction.commit();
+            // Replace whatever is in the fragment_container view with this fragment,
+            // and add the transaction to the back stack so the user can navigate back
+            transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
+            transaction.replace(R.id.frameLayout, fragment);
+            //transaction.addToBackStack(null);
+
+            // Commit the transaction
+            transaction.commit();
+
 
     }
     public void enableNavigationDrawer(){
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        MyDrawerLayout drawer = (MyDrawerLayout) fragment.contentView.findViewById(getNavigationDrawerResourceId());
+        MyDrawerLayout drawer = (MyDrawerLayout) fragment.getContentView().findViewById(getNavigationDrawerResourceId());
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        navigationView = (NavigationView) fragment.contentView.findViewById(getNavigationViewResourceId());
+        navigationView = (NavigationView) fragment.getContentView().findViewById(getNavigationViewResourceId());
         navigationView.setNavigationItemSelectedListener(this);
     }
 
@@ -87,7 +88,7 @@ public abstract class GenericFragmentMenuedActivity < T extends BaseFragmentMana
     /**
      *
      * @return FragmentCallBacks
-     * It will return the instance of fargment class that is implementing @FragmentCallBacks interface.
+     * It will return the instance of fragment class that is implementing @FragmentCallBacks interface.
      */
     public FragmentCallBacks getCallBacks() {
         return callBacks;

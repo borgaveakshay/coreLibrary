@@ -22,7 +22,6 @@ public  abstract class GenericFragmentListMenuedActivity < T extends BaseListFra
 
         defaultTitleResourceId = titleResorceId;
     }
-
     /**
      *
      * @param dataList

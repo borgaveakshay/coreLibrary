@@ -25,16 +25,15 @@ public abstract class BaseFragmentManager extends Fragment implements FragmentCa
     protected GenericFragmentListMenuedActivity appListMenuedActivity;
     protected GenericFragmentMenuedActivity appMenuedActivity;
     ProgressBar progressView;
-    static public View contentView;
     public int progressBarResourceId;
     protected static int menuResourceId;
     protected BaseWebServiceCall webServiceCall;
-
+    protected static View contentView;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        return onViewCreated(inflater, container, savedInstanceState);
+            return  onViewCreated(inflater, container, savedInstanceState);
     }
 
     /**
@@ -164,8 +163,7 @@ public abstract class BaseFragmentManager extends Fragment implements FragmentCa
     public void initFragment() {
 
         setRetainInstance(true);
-
-        contentView = setFragmentView() != null ? setFragmentView() : contentView;
+        contentView = contentView != null ? contentView : setFragmentView();
         progressBarResourceId = setProgressBarResourceId();
         appListMenuedActivity = setMenuedListActivity();
         appMenuedActivity = setMenuedActivity();
